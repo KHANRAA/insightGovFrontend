@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {MainComponent} from './main/main.component';
-import {HighlighCardSliderComponent} from './highligh-card-slider/highligh-card-slider.component';
+import {HighlighCardSliderComponent} from './main/highligh-card-slider/highligh-card-slider.component';
 import {FooterComponent} from './footer/footer.component';
 
 
