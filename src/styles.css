@@ -1,12 +1,12 @@
 
 body {
-  display: grid;
+display: compact;
   grid-template-rows: 1fr auto;
   grid-template-areas: "main" "footer";
   overflow-x: hidden;
   background: #F5F7FA;
   min-height: 100vh;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
 }
 
 body .footer {

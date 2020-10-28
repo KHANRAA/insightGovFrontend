@@ -1,5 +1,5 @@
 <div class="navigation-wrap bg-light start-header start-style">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <nav class="navbar navbar-expand-md navbar-light">
@@ -24,7 +24,7 @@
               </li>
               <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false">Services</a>
+                   aria-expanded="false">Our Activities <fa-icon [icon]="faArrowDown"></fa-icon></a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Action</a>
                   <a class="dropdown-item" href="#">Vision</a>
@@ -38,6 +38,15 @@
               <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                 <a class="nav-link" href="#">Login/Signup</a>
               </li>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                <button class="btn btn-primary" >
+                  <fa-icon [icon]="faDonate"></fa-icon>
+                  Contribute
+                </button>
+              </li>
+              <li class="-pull-right ml-xl-3"><div class="avatar">
+                <fa-icon [icon]="faUser"></fa-icon>
+              </div></li>
             </ul>
           </div>
 

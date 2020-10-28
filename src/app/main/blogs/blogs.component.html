@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <main class="content">
+    <div class="feed-grid">
+      <div class="card-half" *ngFor=" let blog of blogs">
+        <div class="card-img">
+          <span class="label">  <fa-icon [icon]="faStar"></fa-icon></span>
+          <img [src]="blog.imageUrl" [alt]="blog.title"/></div>
+        <div class="card-text mt-1">
+          <h4>{{blog.title}}</h4>
+          <p>{{blog.description}}</p>
+        </div>
+        <ul class="card-tools">
+          <li class="tools-item">
+            <fa-icon [icon]="faCalendar"></fa-icon>
+            <span class="tools-count">{{'27th Aug'}}</span></li>
+          <li class="tools-item">
+            <fa-icon [icon]="faHeart"></fa-icon>
+            <span class="tools-count">{{blog.likes}}</span></li>
+          <li class="tools-item">
+            <fa-icon [icon]="faShare"></fa-icon>
+          </li>
+          <li class="tools-item">
+            <fa-icon [icon]="faUser"></fa-icon>
+            <span class="tools-count">{{blog.author}}</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+</div>
