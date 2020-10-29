@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {faEnvelopeOpenText} from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit } from '@angular/core';
+import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-contact',

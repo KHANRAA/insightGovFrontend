@@ -1,6 +1,6 @@
 
 body {
-display: compact;
+  display: compact;
   grid-template-rows: 1fr auto;
   grid-template-areas: "main" "footer";
   overflow-x: hidden;
@@ -118,3 +118,10 @@ body .footer .content > div .image {
     bottom: var(--distance, 10rem);
   }
 }
+
+.hide{
+  display: none !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

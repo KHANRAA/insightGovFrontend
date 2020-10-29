@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <nav class="navbar navbar-expand-md navbar-light">
-          <a class="navbar-brand" href="https://front.codes/" target="_blank"><img
+          <a class="navbar-brand" routerLink="/" target="_self"><img
             src="https://assets.codepen.io/1462889/fcy.png" alt=""></a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -13,40 +13,50 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto py-4 py-md-0">
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                <a class="nav-link" href="#">Home</a>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
+                <a class="nav-link" routerLink="/home">Home</a>
               </li>
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                <a class="nav-link" href="#">Blog</a>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
+                <a class="nav-link" routerLink="/blogs">Blog</a>
               </li>
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                <a class="nav-link" href="#">Gallery</a>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
+                <a class="nav-link" routerLink="/gallery">Gallery</a>
               </li>
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false">Our Activities <fa-icon [icon]="faArrowDown"></fa-icon></a>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" routerLink="#" role="button"
+                   aria-haspopup="true"
+                   aria-expanded="false">Our Activities
+                  <fa-icon [icon]="faArrowDown"></fa-icon>
+                </a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Vision</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" routerLink="#">Action</a>
+                  <a class="dropdown-item" routerLink="#">Vision</a>
+                  <a class="dropdown-item" routerLink="#">Something else here</a>
+                  <a class="dropdown-item" routerLink="#">Another action</a>
                 </div>
               </li>
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                <a class="nav-link" href="#">Contact</a>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
+                <a class="nav-link" routerLink="/contact">Contact</a>
               </li>
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                <a class="nav-link" href="#">Login/Signup</a>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
+                <a class="nav-link" routerLink="/create">Create</a>
               </li>
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-                <button class="btn btn-primary" >
-                  <fa-icon [icon]="faDonate"></fa-icon>
-                  Contribute
-                </button>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
+                <a class="nav-link" routerLink="/donate">
+                  <button class="btn btn-primary">
+                    <fa-icon [icon]="faDonate"></fa-icon>
+                    Contribute
+                  </button>
+                </a>
               </li>
-              <li class="-pull-right ml-xl-3"><div class="avatar">
-                <fa-icon [icon]="faUser"></fa-icon>
-              </div></li>
+              <li class="-pull-right ml-xl-3" routerLinkActive="active">
+                <a class="nav-link" routerLink="/auth">
+                  <div class="avatar">
+                    <button>
+                      <fa-icon [icon]="faUser"></fa-icon>
+                    </button>
+                  </div>
+                </a></li>
             </ul>
           </div>
 

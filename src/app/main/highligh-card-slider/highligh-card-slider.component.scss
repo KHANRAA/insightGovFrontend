@@ -2,19 +2,13 @@
 * {
   box-sizing: border-box;
 }
-body {
-  background-color: #FFE53B;
-  background-image: linear-gradient(147deg, #FFE53B 0%, #fd3838 74%);
-  min-height: 100vh;
-  font-family: 'Fira Sans', sans-serif;
-  display: flex;
-}
 
 .blog-slider {
   width: 95%;
   position: relative;
-  max-width: 800px;
+  max-width: 700px;
   margin: auto;
+  margin-top: 100px;
   background: #fff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
   padding: 25px;
