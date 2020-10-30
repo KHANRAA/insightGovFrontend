@@ -16,7 +16,16 @@ import { AuthComponent } from './main/auth/auth.component';
 import { CreateBlogComponent } from './main/create-blog/create-blog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
+import { TeamComponent } from './main/team/team.component';
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { TestimonialsComponent } from './main/testimonials/testimonials.component';
 
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
@@ -45,16 +54,23 @@ const appRoutes: Routes = [
     ErrorComponent,
     AuthComponent,
     CreateBlogComponent,
-
+    TeamComponent,
+    TestimonialsComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FontAwesomeModule,
     HttpClientModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    SwiperModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SWIPER_CONFIG,
+      useValue: DEFAULT_SWIPER_CONFIG
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
