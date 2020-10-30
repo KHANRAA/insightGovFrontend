@@ -4,7 +4,7 @@ import { Swiper } from 'swiper';
 @Component({
   selector: 'app-highligh-card-slider',
   templateUrl: './highligh-card-slider.component.html',
-  styleUrls: ['/node_modules/swiper/swiper-bundle.min.css', './highligh-card-slider.component.scss',]
+  styleUrls: ['/node_modules/swiper/swiper-bundle.min.css', './highligh-card-slider.component.scss']
 })
 export class HighlighCardSliderComponent implements OnInit {
 

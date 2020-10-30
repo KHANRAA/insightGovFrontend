@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainComponent } from './main/main.component';
@@ -15,15 +14,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ErrorComponent } from './main/error/error.component';
 import { AuthComponent } from './main/auth/auth.component';
 import { CreateBlogComponent } from './main/create-blog/create-blog.component';
-import { MarkdownEditorModule } from './modules/markdown-editor/markdown-editor.module';
-import { MarkdownEditorOptions } from './modules/markdown-editor/editor/editor.options';
-
-const editorConfig = new MarkdownEditorOptions();
-editorConfig.autoDownloadFontAwesome = false;
-editorConfig.showIcons = ['code', 'table', 'strikethrough'];
-editorConfig.placeholder = 'Lets write something...';
-editorConfig.hideIcons = ['fullscreen', 'side-by-side'];
-editorConfig.autofocus = true;
+import { HttpClientModule } from '@angular/common/http';
+import { QuillModule } from 'ngx-quill';
 
 
 const appRoutes: Routes = [
@@ -59,7 +51,8 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FontAwesomeModule,
-    MarkdownEditorModule.forRoot(editorConfig)
+    HttpClientModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
