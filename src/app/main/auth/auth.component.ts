@@ -73,7 +73,6 @@ export class AuthComponent implements OnInit {
       js.src = 'https://connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk') );
-
   }
 
   // tslint:disable-next-line:typedef
