@@ -24,6 +24,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { FormsModule } from '@angular/forms';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { CampaignComponent } from './main/campaign/campaign.component';
+import { UserComponent } from './main/user/user.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
     TestimonialsComponent,
     LoadingSpinnerComponent,
     CampaignComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
