@@ -41,6 +41,7 @@ export class AuthComponent implements OnInit {
         const profile = googleUser.getBasicProfile();
         console.log('Token || ' + googleUser.getAuthResponse().id_token);
         console.log('ID: ' + profile.getId());
+        this.toast.toastSuccess({ body: 'Google Login Successful', title: '' });
         // ...
         // tslint:disable-next-line:only-arrow-functions typedef
       }, function(error) {
@@ -87,6 +88,7 @@ export class AuthComponent implements OnInit {
       if (response.authResponse) {
         console.warn(response);
         this.checkFbLoginState();
+        this.toast.toastSuccess({ body: 'Facebook login success', title: '' });
         // login success
         // login success code here
         // redirect to home page
