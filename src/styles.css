@@ -17,6 +17,7 @@ body .footer {
   grid-area: footer;
   min-height: 10rem;
 }
+
 body .footer .bubbles {
   position: absolute;
   top: 0;
@@ -28,6 +29,7 @@ body .footer .bubbles {
   -webkit-filter: url("#blob");
   filter: url("#blob");
 }
+
 body .footer .bubbles .bubble {
   position: absolute;
   left: var(--position, 50%);
@@ -38,6 +40,7 @@ body .footer .bubbles .bubble {
   -webkit-transform: translate(-50%, 100%);
   transform: translate(-50%, 100%);
 }
+
 body .footer .content {
   z-index: 2;
   display: grid;
@@ -46,17 +49,21 @@ body .footer .content {
   padding: 2rem;
   background: var(--footer-background);
 }
+
 body .footer .content a, body .footer .content p {
   color: #F5F7FA;
   text-decoration: none;
 }
+
 body .footer .content b {
   color: white;
 }
+
 body .footer .content p {
   margin: 0;
   font-size: .75rem;
 }
+
 body .footer .content > div {
   display: -webkit-box;
   display: flex;
@@ -66,12 +73,15 @@ body .footer .content > div {
   -webkit-box-pack: center;
   justify-content: center;
 }
+
 body .footer .content > div > div {
   margin: 0.25rem 0;
 }
+
 body .footer .content > div > div > * {
   margin-right: .5rem;
 }
+
 body .footer .content > div .image {
   align-self: center;
   width: 4rem;
@@ -102,6 +112,7 @@ body .footer .content > div .image {
     height: 0rem;
   }
 }
+
 @-webkit-keyframes bubble-move {
   0% {
     bottom: -4rem;
@@ -110,6 +121,7 @@ body .footer .content > div .image {
     bottom: var(--distance, 10rem);
   }
 }
+
 @keyframes bubble-move {
   0% {
     bottom: -4rem;
@@ -119,9 +131,15 @@ body .footer .content > div .image {
   }
 }
 
-.hide{
+.hide {
   display: none !important;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

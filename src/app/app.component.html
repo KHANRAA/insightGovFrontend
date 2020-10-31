@@ -1,7 +1,8 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
-
-<div class="d-flex flex-column min-vh-100">
+<div class="d-flex flex-column min-vh-100" *ngIf="!isLoading">
   <app-navbar></app-navbar>
   <router-outlet></router-outlet>
+  <ng-snotify></ng-snotify>
   <app-footer class="mt-auto"></app-footer>
 </div>

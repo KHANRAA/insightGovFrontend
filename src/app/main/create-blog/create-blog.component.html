@@ -1,15 +1,17 @@
 <div class="container" style="margin-top: 100px !important; margin-bottom:100px !important;">
   <div class="row pt-5 pb-5">
-    <div class="col-md-12 pb-5">
-      <input class="form-control form-control-lg" type="text" placeholder="Enter a nice title..." #title>
-    </div>
-    <div class="col-md-12">
-      <div id="quill">
-        <quill-editor [styles]="editorStyle" placeholder="Lets create some awesome posts..." [modules]="config"
-                      formControlName="yourCtrlname" required>
-        </quill-editor>
+    <form #createBlog="ngForm" (ngSubmit)="createPostRequest(createBlog)">
+      <div class="col-md-12 pb-5">
+        <input class="form-control form-control-lg" type="text" name="title" ngForm placeholder="Enter a nice title...">
       </div>
-    </div>
+      <div class="col-md-12">
+        <div id="quill">
+          <quill-editor [styles]="editorStyle" placeholder="Lets create some awesome posts..." [modules]="config"
+                        ngModel name="description" required>
+          </quill-editor>
+        </div>
+      </div>
+    </form>
   </div>
 
   <button class="btn btn-outline-info"> Create</button>

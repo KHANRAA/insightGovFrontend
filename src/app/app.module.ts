@@ -9,7 +9,6 @@ import { GalleryComponent } from './main/gallery/gallery.component';
 import { BlogsComponent } from './main/blogs/blogs.component';
 import { DonateComponent } from './main/donate/donate.component';
 import { ContactComponent } from './main/contact/contact.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Routes, RouterModule } from '@angular/router';
 import { ErrorComponent } from './main/error/error.component';
 import { AuthComponent } from './main/auth/auth.component';
@@ -21,6 +20,9 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { TestimonialsComponent } from './main/testimonials/testimonials.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { FormsModule } from '@angular/forms';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -56,20 +58,24 @@ const appRoutes: Routes = [
     CreateBlogComponent,
     TeamComponent,
     TestimonialsComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FontAwesomeModule,
     HttpClientModule,
     QuillModule.forRoot(),
-    SwiperModule
+    SwiperModule,
+    FormsModule,
+    SnotifyModule
   ],
   providers: [
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
-    }
+    },
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
+    SnotifyService
   ],
   bootstrap: [AppComponent]
 })

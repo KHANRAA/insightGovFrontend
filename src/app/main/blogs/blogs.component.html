@@ -3,7 +3,7 @@
     <div class="feed-grid">
       <div class="card-half" *ngFor=" let blog of blogs">
         <div class="card-img">
-          <span class="label">  <fa-icon [icon]="faStar"></fa-icon></span>
+          <span class="label">  <i class="fas fa-star"></i></span>
           <img [src]="blog.imageUrl" [alt]="blog.title"/></div>
         <div class="card-text mt-1">
           <h4>{{blog.title}}</h4>
@@ -11,16 +11,16 @@
         </div>
         <ul class="card-tools">
           <li class="tools-item">
-            <fa-icon [icon]="faCalendar"></fa-icon>
+            <i class="fas fa-calendar-day"></i>
             <span class="tools-count">{{'27th Aug'}}</span></li>
           <li class="tools-item">
-            <fa-icon [icon]="faHeart"></fa-icon>
+            <i class="fas fa-heart"></i>
             <span class="tools-count">{{blog.likes}}</span></li>
           <li class="tools-item">
-            <fa-icon [icon]="faShare"></fa-icon>
+            <i class="fas fa-share-alt-square"></i>
           </li>
           <li class="tools-item">
-            <fa-icon [icon]="faUser"></fa-icon>
+            <i class="fas fa-user-circle"></i>
             <span class="tools-count">{{blog.author}}</span></li>
         </ul>
       </div>

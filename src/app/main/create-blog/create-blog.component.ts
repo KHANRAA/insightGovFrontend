@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-create-blog',
@@ -52,16 +52,11 @@ export class CreateBlogComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  createPost(data) {
-    this.createPostRequest({ title: data.value, desc: this.postContent, author: 'Akash Khanra', time: Date.now().toString() });
-  }
-
-  // tslint:disable-next-line:typedef
-  createPostRequest(postData: { title: string, desc: string, author: string, time: string, }) {
-    console.log('Post Creating ...');
-    this.http.post('https://inside-ngo.firebaseio.com/posts.json', postData).subscribe(respData => {
-      console.log(respData);
-    });
+  createPostRequest(postData: NgForm) {
+    console.log(postData.value);
+    // this.http.post('https://inside-ngo.firebaseio.com/posts.json', postData).subscribe(respData => {
+    //   console.log(respData);
+    // });
   }
 
 }

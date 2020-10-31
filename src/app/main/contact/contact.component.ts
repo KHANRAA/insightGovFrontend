@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -7,12 +7,16 @@ import { faEnvelopeOpenText } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-  faEnvelopeOpenText = faEnvelopeOpenText;
 
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  // tslint:disable-next-line:typedef
+  contactSubmit(contactData: NgForm){
+    console.log(contactData.value);
   }
 
 }
