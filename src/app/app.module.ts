@@ -23,6 +23,7 @@ import { TestimonialsComponent } from './main/testimonials/testimonials.componen
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { FormsModule } from '@angular/forms';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+import { CampaignComponent } from './main/campaign/campaign.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'error', component: ErrorComponent },
   { path: 'create', component: CreateBlogComponent },
+  { path: 'campaign', component: CampaignComponent }
 
 ];
 
@@ -59,6 +61,7 @@ const appRoutes: Routes = [
     TeamComponent,
     TestimonialsComponent,
     LoadingSpinnerComponent,
+    CampaignComponent,
   ],
   imports: [
     BrowserModule,
