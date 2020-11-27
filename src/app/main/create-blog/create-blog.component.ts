@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 
@@ -6,23 +6,25 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
   selector: 'app-create-blog',
   templateUrl: './create-blog.component.html',
   styleUrls: ['./create-blog.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateBlogComponent implements OnInit {
-  postContent: string;
+  @ViewChild('postContent') postContent;
   editorForm: FormGroup;
+  formContent: any;
 
   editorStyle = {
     minHeight: '200px',
   };
-   config = {
+  config = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
       ['blockquote', 'code-block'],
 
       [{ header: 1 }, { header: 2 }],               // custom button values
-      [{ list: 'ordered'}, { list: 'bullet' }],
-      [{ script: 'sub'}, { script: 'super' }],      // superscript/subscript
-      [{ indent: '-1'}, { indent: '+1' }],          // outdent/indent
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],      // superscript/subscript
+      [{ indent: '-1' }, { indent: '+1' }],          // outdent/indent
       [{ direction: 'rtl' }],                         // text direction
 
       [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
@@ -46,17 +48,18 @@ export class CreateBlogComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line:typedef
-  onMarkdownChange(markdown: string) {
-    this.postContent = markdown;
-  }
+  // // tslint:disable-next-line:typedef
+  // onMarkdownChange(markdown: string) {
+  //   this.postContent = markdown;
+  // }
 
   // tslint:disable-next-line:typedef
-  createPostRequest(postData: NgForm) {
-    console.log(postData.value);
-    // this.http.post('https://inside-ngo.firebaseio.com/posts.json', postData).subscribe(respData => {
-    //   console.log(respData);
-    // });
+  createPostRequest(postData: {title: NgForm}) {
+    console.log(postData.title);
+    // console.warn(this.postContent);
+    this.http.post('https://inside-ngo.firebaseio.com/posts.json', postData).subscribe(respData => {
+      console.log(respData);
+    });
   }
 
 }

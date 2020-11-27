@@ -2,18 +2,18 @@
   <div class="row pt-5 pb-5">
     <form #createBlog="ngForm" (ngSubmit)="createPostRequest(createBlog)">
       <div class="col-md-12 pb-5">
-        <input class="form-control form-control-lg" type="text" name="title" ngForm placeholder="Enter a nice title...">
+        <input class="form-control form-control-lg" type="text" name="title" ngModel placeholder="Enter a nice title..."
+               required/>
       </div>
       <div class="col-md-12">
         <div id="quill">
           <quill-editor [styles]="editorStyle" placeholder="Lets create some awesome posts..." [modules]="config"
-                        ngModel name="description" required>
+                        #postContejt name="description" required>
           </quill-editor>
         </div>
       </div>
+      <button type="submit" class="btn btn-outline-info"> Create</button>
     </form>
   </div>
-
-  <button class="btn btn-outline-info"> Create</button>
 </div>
 
