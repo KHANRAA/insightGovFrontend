@@ -40,7 +40,7 @@ const appRoutes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'error', component: ErrorComponent },
-  { path: 'create', component: CreateBlogComponent },
+  { path: 'create/blog', component: CreateBlogComponent },
   { path: 'campaign', component: CampaignComponent }
 
 ];
