@@ -13,6 +13,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { ErrorComponent } from './main/error/error.component';
 import { AuthComponent } from './main/auth/auth.component';
 import { CreateBlogComponent } from './main/create-blog/create-blog.component';
+import { CampaignComponent } from './main/campaign/campaign.component';
+import { UserComponent } from './main/user/user.component';
+import { ProfileComponent } from './main/profile/profile.component';
+import { GalleryUploadComponent } from './main/admin/gallery-upload/gallery-upload.component';
+import { UserManagementComponent } from './main/admin/user-management/user-management.component';
+import { ContactRequestsComponent } from './main/admin/contact-requests/contact-requests.component';
+import { CreateCampaignComponent } from './main/admin/create-campaign/create-campaign.component';
+import { UnderConstructionComponent } from './main/under-construction/under-construction.component';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { TeamComponent } from './main/team/team.component';
@@ -23,8 +31,7 @@ import { TestimonialsComponent } from './main/testimonials/testimonials.componen
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { FormsModule } from '@angular/forms';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
-import { CampaignComponent } from './main/campaign/campaign.component';
-import { UserComponent } from './main/user/user.component';
+
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -39,10 +46,14 @@ const appRoutes: Routes = [
   { path: 'donate', component: ContactComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'auth', component: AuthComponent },
-  { path: 'error', component: ErrorComponent },
+  { path: 'campaign', component: CampaignComponent },
   { path: 'create/blog', component: CreateBlogComponent },
-  { path: 'campaign', component: CampaignComponent }
-
+  { path: 'upload/gallery', component: GalleryUploadComponent },
+  { path: 'requests/contact', component: UnderConstructionComponent },
+  { path: 'view/users', component: UnderConstructionComponent },
+  { path: 'create/campaign', component: UnderConstructionComponent },
+  { path: 'profile', component: UnderConstructionComponent },
+  { path: 'error', component: ErrorComponent },
 ];
 
 @NgModule({
@@ -64,6 +75,12 @@ const appRoutes: Routes = [
     LoadingSpinnerComponent,
     CampaignComponent,
     UserComponent,
+    GalleryUploadComponent,
+    UserManagementComponent,
+    ContactRequestsComponent,
+    ProfileComponent,
+    CreateCampaignComponent,
+    UnderConstructionComponent,
   ],
   imports: [
     BrowserModule,

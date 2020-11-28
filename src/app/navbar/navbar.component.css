@@ -10,11 +10,11 @@
 
 ::selection {
   color: #fff;
-  background-color: #8167a9;
+  background-color: #FF5722;
 }
 ::-moz-selection {
   color: #fff;
-  background-color: #8167a9;
+  background-color: #FF5722;
 }
 
 
@@ -108,7 +108,7 @@
   transition: all 200ms linear;
 }
 .nav-item:hover .nav-link{
-  color: #8167a9 !important;
+  color: #FF5722 !important;
 }
 .nav-item.active .nav-link{
   color: #777 !important;
@@ -125,7 +125,7 @@
   width: 100%;
   height: 2px;
   content: '';
-  background-color: #8167a9;
+  background-color: #FF5722;
   opacity: 0;
   transition: all 200ms linear;
 }
@@ -337,7 +337,7 @@ body.hero-anime #switch{
 }
 .switched {
   border-color: #000 !important;
-  background: #8167a9 !important;
+  background: #FF5722 !important;
 }
 .switched #circle {
   left: 43px;
@@ -385,7 +385,7 @@ body.hero-anime #switch{
 .dropdown-item:hover,
 .dropdown-item:focus {
   color: #fff;
-  background-color: rgba(129,103,169,.6);
+  background-color: #FF5722;
 }
 
 body.dark{
