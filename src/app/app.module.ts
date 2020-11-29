@@ -31,7 +31,23 @@ import { TestimonialsComponent } from './main/testimonials/testimonials.componen
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { FormsModule } from '@angular/forms';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+// import filepond module
+import { FilePondModule, registerPlugin } from 'ngx-filepond';
 
+// import and register filepond file type validation plugin
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+
+registerPlugin(
+  FilePondPluginFileValidateType,
+  FilePondPluginFileEncode,
+  FilePondPluginFileValidateSize,
+  FilePondPluginImagePreview,
+  FilePondPluginImageExifOrientation
+);
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -89,7 +105,8 @@ const appRoutes: Routes = [
     QuillModule.forRoot(),
     SwiperModule,
     FormsModule,
-    SnotifyModule
+    SnotifyModule,
+    FilePondModule
   ],
   providers: [
     {

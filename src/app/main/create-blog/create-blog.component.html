@@ -1,10 +1,20 @@
-<div class="container" style="margin-top: 100px !important; margin-bottom:100px !important;">
+<div class="container" style="margin-top: 100px !important;">
   <div class="row pt-5 pb-5">
-    <form #createBlog="ngForm" (ngSubmit)="createPostRequest(createBlog)">
+    <form #createBlog="ngForm">
 
-      <div class="col-md-12 pb-5">
+      <div class="col-md-12 pb-5 min-width-centre">
         <input class="form-control form-control-lg" type="text" name="title" ngModel placeholder="Enter a nice title..."
                required/>
+      </div>
+      <div class="col-md-12 min-width-centre">
+
+        <file-pond #myPond
+                   [options]="pondOptions"
+                   [files]="pondFiles"
+                   [style]="editorStyle"
+                   (oninit)="pondHandleInit()"
+                   (onaddfile)="pondHandleAddFile($event)">
+        </file-pond>
       </div>
       <div class="col-md-12">
         <div id="quill">
@@ -16,6 +26,8 @@
 
       <button type="submit" class="btn btn-outline-info"> Create</button>
     </form>
+
   </div>
+
 </div>
 

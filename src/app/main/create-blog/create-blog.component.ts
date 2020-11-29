@@ -9,13 +9,27 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class CreateBlogComponent implements OnInit {
+
+
+  constructor(private http: HttpClient) {
+  }
+
   @ViewChild('postContent') postContent;
+  @ViewChild('myPond') myPond: any;
   editorForm: FormGroup;
   formContent: any;
+
+  pondOptions = {
+    multiple: false,
+    labelIdle: 'Upload an image....',
+    acceptedFileTypes: 'image/jpeg, image/png, image/jpg'
+  };
+  pondFiles = [];
 
   editorStyle = {
     minHeight: '200px',
   };
+
   config = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -40,7 +54,15 @@ export class CreateBlogComponent implements OnInit {
     ]
   };
 
-  constructor(private http: HttpClient) { }
+  // tslint:disable-next-line:typedef
+  pondHandleInit() {
+    console.log('FilePond has initialised', this.myPond);
+  }
+
+  // tslint:disable-next-line:typedef
+  pondHandleAddFile(event: any) {
+    console.log('A file was added', event);
+  }
 
   ngOnInit(): void {
     this.editorForm = new FormGroup({
@@ -53,13 +75,13 @@ export class CreateBlogComponent implements OnInit {
   //   this.postContent = markdown;
   // }
 
-  // tslint:disable-next-line:typedef
-  createPostRequest(postData: {title: NgForm}) {
-    console.log(postData.title);
-    // console.warn(this.postContent);
-    this.http.post('https://inside-ngo.firebaseio.com/posts.json', postData).subscribe(respData => {
-      console.log(respData);
-    });
-  }
+  // // tslint:disable-next-line:typedef
+  // createPostRequest(postData: NgForm) {
+  //   console.log(postData.title);
+  //   // console.warn(this.postContent);
+  //   this.http.post('https://inside-ngo.firebaseio.com/posts.json', postData).subscribe(respData => {
+  //     console.log(respData);
+  //   });
+  // }
 
 }

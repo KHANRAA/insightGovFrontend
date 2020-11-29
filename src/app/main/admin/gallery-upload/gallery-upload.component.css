@@ -1,0 +1,46 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+
+.filepond--credits{
+  display: none !important;
+
+}
+.min-width-centre{
+  margin: 0 auto;
+}
+
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+h2 {
+  font-size: 22px;
+  line-height: 1.6;
+  text-align: center;
+  font-weight: 300;
+  color: #777;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 10px !important;
+}
+.filepond--drop-label {
+  color: #4c4e53;
+}
+
+.filepond--label-action {
+  text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+  border-radius: 2em;
+  background-color: #edf0f4;
+  height: 1em;
+}
+
+.filepond--item-panel {
+  background-color: #595e68;
+}
+
+.filepond--drip-blob {
+  background-color: #7f8a9a;
+}

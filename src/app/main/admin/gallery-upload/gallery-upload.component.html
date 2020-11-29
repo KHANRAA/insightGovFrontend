@@ -1,1 +1,15 @@
-<p>gallery-upload works!</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-12 mt-5">
+      <file-pond #myPond
+                 [options]="pondOptions"
+                 [files]="pondFiles"
+                 (oninit)="pondHandleInit()"
+                 data-max-files="5"
+                 (onaddfile)="pondHandleAddFile($event)">
+      </file-pond>
+    </div>
+
+  </div>
+
+</div>
