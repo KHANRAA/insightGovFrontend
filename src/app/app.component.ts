@@ -1,4 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import { AuthService } from './main/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,12 @@ import { Component, Injectable, OnInit } from '@angular/core';
 
 export class AppComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   isLoading = false;
 
   ngOnInit(): void {
+    this.authService.autoLogin();
   }
 
 }

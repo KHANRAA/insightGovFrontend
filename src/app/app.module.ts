@@ -9,7 +9,8 @@ import { GalleryComponent } from './main/gallery/gallery.component';
 import { BlogsComponent } from './main/blogs/blogs.component';
 import { DonateComponent } from './main/donate/donate.component';
 import { ContactComponent } from './main/contact/contact.component';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './store/app.routes';
 import { ErrorComponent } from './main/error/error.component';
 import { AuthComponent } from './main/auth/auth.component';
 import { CreateBlogComponent } from './main/create-blog/create-blog.component';
@@ -21,56 +22,23 @@ import { UserManagementComponent } from './main/admin/user-management/user-manag
 import { ContactRequestsComponent } from './main/admin/contact-requests/contact-requests.component';
 import { CreateCampaignComponent } from './main/admin/create-campaign/create-campaign.component';
 import { UnderConstructionComponent } from './main/under-construction/under-construction.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { TeamComponent } from './main/team/team.component';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { TestimonialsComponent } from './main/testimonials/testimonials.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { FormsModule } from '@angular/forms';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
-// import filepond module
-import { FilePondModule, registerPlugin } from 'ngx-filepond';
+import { FilePondModule } from 'ngx-filepond';
+import filePondPlugins from './store/file-pond.plugin';
+import { StoreModule } from '@ngrx/store';
+import * as  fromApp from './store/app.reducer';
+import { DEFAULT_SWIPER_CONFIG } from './store/swiper.config';
+import { AuthInterceptorService } from './services/auth.interceptor.service';
 
-// import and register filepond file type validation plugin
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
-import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
-import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-
-registerPlugin(
-  FilePondPluginFileValidateType,
-  FilePondPluginFileEncode,
-  FilePondPluginFileValidateSize,
-  FilePondPluginImagePreview,
-  FilePondPluginImageExifOrientation
-);
-
-const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  direction: 'horizontal',
-  slidesPerView: 'auto'
-};
-
-const appRoutes: Routes = [
-  { path: '', component: MainComponent },
-  { path: 'home', component: MainComponent },
-  { path: 'blogs', component: BlogsComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'donate', component: ContactComponent },
-  { path: 'gallery', component: GalleryComponent },
-  { path: 'auth', component: AuthComponent },
-  { path: 'campaign', component: CampaignComponent },
-  { path: 'create/blog', component: CreateBlogComponent },
-  { path: 'upload/gallery', component: GalleryUploadComponent },
-  { path: 'requests/contact', component: UnderConstructionComponent },
-  { path: 'view/users', component: UnderConstructionComponent },
-  { path: 'create/campaign', component: UnderConstructionComponent },
-  { path: 'profile', component: UnderConstructionComponent },
-  { path: 'error', component: ErrorComponent },
-];
+filePondPlugins();
 
 @NgModule({
   declarations: [
@@ -100,15 +68,21 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot(fromApp.appReducer),
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     QuillModule.forRoot(),
     SwiperModule,
     FormsModule,
     SnotifyModule,
-    FilePondModule
+    FilePondModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG

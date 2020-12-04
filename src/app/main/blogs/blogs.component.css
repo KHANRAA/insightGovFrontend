@@ -28,7 +28,6 @@ body {
 .wrapper {
   display: -webkit-box;
   display: flex;
-  background-color: pink;
   -webkit-box-flex: 1;
   flex-grow: 1;
 }
@@ -37,7 +36,6 @@ header {
   display: -webkit-box;
   display: flex;
   height: 65px;
-  background-color: #ffffff;
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: justify;
@@ -81,7 +79,6 @@ header {
 .content {
   width: 100%;
   padding: 50px;
-  background-color: #FFFF;
 }
 
 .feed-grid {

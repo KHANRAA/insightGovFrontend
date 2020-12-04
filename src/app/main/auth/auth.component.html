@@ -1,16 +1,18 @@
-<div class="container-fluid mt-7rem mb-5">
+<app-loading-spinner [hidden]="!isLoading"></app-loading-spinner>
+<div class="container-fluid mt-7rem mb-5" [hidden]="isLoading">
   <div class="row">
     <div class="col-lg-12">
       <div class="container" id="container">
         <div class="form-container sign-up-container">
-          <form #signUpForm="ngForm" (ngSubmit)="signUp(signUpForm)">
+          <form #signUpForm="ngForm" (ngSubmit)="signUpByPassword(signUpForm)">
             <h1>Create Account</h1>
             <div class="social-container">
               <a class="social" (click)="facebookLogin();"><i class="fab fa-facebook-f"></i></a>
-              <a class="social" id="google2" #google2 (click)="googleLogin(google2)"><i class="fab fa-google-plus-g"></i></a>
+              <a class="social" id="google2" #google2 (click)="googleLogin(google2)"><i
+                class="fab fa-google-plus-g"></i></a>
             </div>
             <span>or use your email for registration</span>
-            <input type="text" id="name" placeholder="Name" ngModel name="email" required #name class="form-control"/>
+            <input type="text" id="name" placeholder="Name" ngModel name="name" required class="form-control"/>
             <input type="email" id="email2" placeholder="Email" ngModel name="email" required email
                    class="form-control"/>
             <input type="password" id="password2" placeholder="Password" ngModel required name="password"
@@ -19,18 +21,19 @@
           </form>
         </div>
         <div class="form-container sign-in-container">
-          <form #signInForm="ngForm" (ngSubmit)="signIn(signInForm)">
+          <form #signInForm="ngForm" (ngSubmit)="signInByPassword(signInForm)">
             <h1>Sign in</h1>
             <div class="social-container">
               <a class="social" (click)="facebookLogin();"><i class="fab fa-facebook-f"></i></a>
-              <a class="social"  id="google1" #google1 (click)="googleLogin(google1)"><i class="fab fa-google-plus-g"></i></a>
+              <a class="social" id="google1" #google1 (click)="googleLogin(google1)"><i
+                class="fab fa-google-plus-g"></i></a>
             </div>
             <span>or use your account</span>
             <input class="form-control" type="email" id="email1" placeholder="Email" ngModel name="email" required
                    email/>
             <input class="form-control" type="password" id="password1" ngModel required name="password"
-                   placeholder="Password" minlength="6" maxlength="30"/>
-            <a href="#">Forgot your password?</a>
+                   placeholder="Password" minlength="6" maxlength="40"/>
+            <a href="#">Forget your password?</a>
             <button type="submit" [disabled]="!signInForm.valid">Sign In</button>
           </form>
         </div>

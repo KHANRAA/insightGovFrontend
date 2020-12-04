@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastServiceService } from '../../services/toast/toast-service.service';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 declare const FB: any;
 declare const gapi: any;
@@ -12,6 +14,7 @@ declare const gapi: any;
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+  isLoading = false;
 
   private clientId = '333391506365-4o6pf758o1qk9lmie299n0iiovvoescp.apps.googleusercontent.com';
 
@@ -22,7 +25,6 @@ export class AuthComponent implements OnInit {
 
   auth2: any;
 
-  // tslint:disable-next-line:typedef
   googleInit(element: HTMLAnchorElement) {
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
@@ -34,7 +36,6 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line:typedef
   attachSignin(element: HTMLAnchorElement) {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
@@ -43,17 +44,16 @@ export class AuthComponent implements OnInit {
         console.log('ID: ' + profile.getId());
         this.toast.toastSuccess({ body: 'Google Login Successful', title: '' });
         // ...
-        // tslint:disable-next-line:only-arrow-functions typedef
-      }, function(error) {
+      }, (error) => {
         console.log(JSON.stringify(error, undefined, 2));
       });
   }
 
-  constructor(private toast: ToastServiceService) { }
+  constructor(private toast: ToastServiceService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    // tslint:disable-next-line:only-arrow-functions typedef
-    ( window as any ).fbAsyncInit = function() {
+    this.isLoading = false;
+    (window as any).fbAsyncInit = () => {
       FB.init({
         appId: '351976062541258',
         cookie: true,
@@ -64,23 +64,23 @@ export class AuthComponent implements OnInit {
     };
 
     // tslint:disable-next-line:only-arrow-functions typedef
-    ( function(d, s, id) {
+    (function(d, s, id) {
       // tslint:disable-next-line:one-variable-per-declaration prefer-const
       let js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return; }
+      if (d.getElementById(id)) {
+        return;
+      }
       js = d.createElement(s);
       js.id = id;
       js.src = 'https://connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk') );
+    }(document, 'script', 'facebook-jssdk'));
   }
 
-  // tslint:disable-next-line:typedef
   googleLogin(element: HTMLAnchorElement) {
     this.googleInit(element);
   }
 
-  // tslint:disable-next-line:typedef
   facebookLogin() {
     console.log('submit login to facebook');
     FB.login((response) => {
@@ -99,34 +99,57 @@ export class AuthComponent implements OnInit {
   }
 
 
-  // tslint:disable-next-line:typedef
   checkFbLoginState() {
-    // tslint:disable-next-line:only-arrow-functions typedef
-    FB.getLoginStatus(function(response) {
+
+    FB.getLoginStatus((response) => {
       // @ts-ignore
       console.warn(response);
     });
   }
 
-  // tslint:disable-next-line:typedef
-  signUp(form: NgForm) {
-    console.warn(form.value);
-
+  signInByPassword(form: NgForm) {
+    this.isLoading = true;
+    if (!form.valid) {
+      this.toast.toastError({ body: 'Sign In form is not valid ...', title: '' });
+      return;
+    }
+    const email = form.value.email;
+    const password = form.value.password;
+    this.authService.signInByPassword(email, password).subscribe(resData => {
+      this.isLoading = false;
+      console.log(resData);
+      this.router.navigate(['/profile']);
+    }, errorMessage => {
+      this.isLoading = false;
+      this.toast.toastError({ body: errorMessage, title: '' });
+    });
+    form.reset();
   }
 
-  // tslint:disable-next-line:typedef
-  signIn(form: NgForm) {
-    console.warn(form.value);
-
+  signUpByPassword(form: NgForm) {
+    this.isLoading = true;
+    if (!form.valid) {
+      this.toast.toastError({ body: 'Sign Up form is not valid ...', title: 'SignIn Error' });
+      return;
+    }
+    const email = form.value.email;
+    const name = form.value.password;
+    const password = form.value.password;
+    this.authService.signUpByPassword(name, email, password).subscribe(resData => {
+      this.isLoading = false;
+      console.log(resData);
+    }, errorMessage => {
+      this.isLoading = false;
+      this.toast.toastError({ body: errorMessage, title: 'SignUp Error' });
+    });
+    form.reset();
   }
 
-  // tslint:disable-next-line:typedef
   signUpClicked() {
-    this.toast.toastSuccess({ body: 'Hello there from success', title: '' });
+    this.toast.toastSuccess({ body: 'Hello there from success', title: 'Signup Error' });
     document.getElementById('container').classList.add('right-panel-active');
   }
 
-  // tslint:disable-next-line:typedef
   signInClicked() {
     this.toast.toastError({ body: 'Hello there from error', title: '' });
     document.getElementById('container').classList.remove('right-panel-active');

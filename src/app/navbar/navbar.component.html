@@ -3,14 +3,12 @@
     <div class="row">
       <div class="col-12">
         <nav class="navbar navbar-expand-md navbar-light">
-          <a routerLink="/" target="_self"><img height="40px" width="40px"
-                                                src="./assets/images/logo.png" alt=""></a>
+          <a routerLink="/" target="_self"><img height="40" width="40" src="./assets/images/logo.png" alt=""></a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto py-4 py-md-0">
               <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
@@ -29,7 +27,7 @@
               <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
                 <a class="nav-link" routerLink="/contact">Contact</a>
               </li>
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active" *ngIf="isAuthenticated">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">Admin</a>
                 <div class="dropdown-menu">
@@ -39,6 +37,9 @@
                   <a class="dropdown-item" routerLink="/requests/contact">Check Contact Requests</a>
                   <a class="dropdown-item" routerLink="/view/users">User Management</a>
                 </div>
+              </li>
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" (click)="onLogout()" *ngIf="isAuthenticated">
+                <a class="nav-link">Logout</a>
               </li>
               <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
                 <a class="nav-link" target="_blank" href="https://rzp.io/l/dews">
@@ -56,12 +57,17 @@
                     </button>
                   </div>
                 </a></li>
+              <!--li class="-pull-right ml-xl-3" routerLinkActive="active">
+                <a class="nav-link" routerLink="/auth">
+                  <div id="switch">
+                    <div id="circle"></div>
+                  </div>
+                </a></li-->
             </ul>
           </div>
-
         </nav>
       </div>
     </div>
   </div>
-</div>
 
+</div>
