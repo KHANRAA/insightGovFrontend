@@ -27,7 +27,7 @@
               <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active">
                 <a class="nav-link" routerLink="/contact">Contact</a>
               </li>
-              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active" *ngIf="isAuthenticated">
+              <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" routerLinkActive="active" *ngIf="isAuthenticated && isAdmin">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">Admin</a>
                 <div class="dropdown-menu">
@@ -51,18 +51,18 @@
               </li>
               <li class="-pull-right ml-xl-3" routerLinkActive="active">
                 <a class="nav-link" routerLink="/auth">
-                  <div class="avatar">
+                  <div >
                     <button>
                       <i class="fas fa-user-check"></i>
                     </button>
                   </div>
                 </a></li>
-              <!--li class="-pull-right ml-xl-3" routerLinkActive="active">
+              <li class="-pull-right ml-xl-3" routerLinkActive="active">
                 <a class="nav-link" routerLink="/auth">
                   <div id="switch">
                     <div id="circle"></div>
                   </div>
-                </a></li-->
+                </a></li>
             </ul>
           </div>
         </nav>

@@ -1,8 +1,11 @@
-<div class="container form-wrap mt-7rem mb-5">
-  <span class="pro">MEMBER</span>
+<app-loading-spinner [hidden]="!isLoading"></app-loading-spinner>
+<div class="container form-wrap mt-7rem mb-5" [hidden]="isLoading">
+  <span class="pro">{{ profileUser.role || 'Not Available' }}</span>
   <div class="profile">
-    <img src="https://storage.googleapis.com/dews_avatars/avatars/men.png" height="118" width="118">
-    <h1>User Name</h1>
+    <img [src]=" profileUser.avatarImageUrl || 'https://storage.googleapis.com/dews_avatars/avatars/men.png'"
+         height="118"
+         width="118">
+    <h1>{{ profileUser.name }}</h1>
     <div class="description">
       Maddie is a front end web developer in New York. She has worked in the field for 10 years now. Check out her
       projects in the links below. She is available for hire as well.
@@ -25,15 +28,15 @@
     </div>
     <div>
       <label for="testimonial">Mobile</label>
-      <input type="email" name="email" required>
+      <input type="email" name="email" [value]="profileUser.mobile || ''" required>
     </div>
     <div>
       <label for="testimonial">Testimonial</label>
-      <input type="email" name="email" required>
+      <input type="email" name="email" [value]="profileUser.testimonial || ''" required>
     </div>
     <div>
       <label for="testimonial">Address</label>
-      <input type="email" name="email" required>
+      <input type="email" name="email" [value]="profileUser.address" required>
     </div>
     <!--div>
       <label for="country">Страна</label>

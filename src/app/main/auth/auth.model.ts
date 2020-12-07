@@ -3,7 +3,7 @@ export class User {
     public email: string,
     public id: string,
     public role: string,
-    private _token: string,
+    private _dewsToken: string,
     private _tokenExpirationDate: Date
   ) {}
 
@@ -11,6 +11,6 @@ export class User {
     if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
       return null;
     }
-    return this._token;
+    return this._dewsToken;
   }
 }

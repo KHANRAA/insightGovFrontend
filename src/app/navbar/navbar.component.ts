@@ -1,28 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import * as $ from 'jquery';
 import { AuthService } from '../main/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import * as AuthActions from '../main/auth/auth.actions';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
+  isAdmin = false;
   private userSub: Subscription;
 
   constructor(private authService: AuthService, private store: Store<fromApp.AppState>) {
   }
 
   ngOnInit(): void {
-    this.userSub = this.store.select('auth').pipe(take(1), map(authUser => authUser.user)).subscribe(user => {
-      this.isAuthenticated = !!user;
-    });
+    this.userSub = this.store
+      .select('auth')
+      .pipe(map(authState => authState.user))
+      .subscribe(user => {
+        this.isAuthenticated = !!user;
+        if (!!user && user.role === 'admin') {
+          this.isAdmin = true;
+        }
+      });
     const header = $('.start-style');
     $(window).scroll(() => {
       const scroll = $(window).scrollTop();
@@ -34,31 +42,32 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
 
-    $(document).ready(() => {
-      $('body.hero-anime').removeClass('hero-anime');
-    });
+    // $(document).ready(() => {
+    //   $('body.hero-anime').removeClass('hero-anime');
+    // });
     $('body').on('mouseenter mouseleave', '.nav-item', (e) => {
       if ($(window).width() > 750) {
-        const _d = $(e.target).closest('.nav-item');
+        const _d = $(e.target).closest('.¸');
         _d.addClass('show');
         setTimeout(() => {
-          _d[_d.is(':hover') ? 'addClass' : 'removeClass']('show');
+          _d[$('_d:hover') ? 'addClass' : 'removeClass']('show');
         }, 1);
       }
     });
-    $('#switch').on('click', () => {
-      if ($('body').hasClass('dark')) {
-        $('body').removeClass('dark');
-        $('#switch').removeClass('switched');
-      } else {
-        $('body').addClass('dark');
-        $('#switch').addClass('switched');
-      }
-    });
+    // $('#switch').on('click', () => {
+    //   if ($('body').hasClass('dark')) {
+    //     $('body').removeClass('dark');
+    //     $('#switch').removeClass('switched');
+    //   } else {
+    //     $('body').addClass('dark');
+    //     $('#switch').addClass('switched');
+    //   }
+    // });
   }
 
   onLogout() {
-    this.authService.logout();
+    // this.authService.logout();
+    this.store.dispatch(new AuthActions.Logout());
   }
 
   ngOnDestroy() {

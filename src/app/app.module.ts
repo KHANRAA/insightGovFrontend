@@ -33,10 +33,15 @@ import { FormsModule } from '@angular/forms';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { FilePondModule } from 'ngx-filepond';
 import filePondPlugins from './store/file-pond.plugin';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import * as  fromApp from './store/app.reducer';
 import { DEFAULT_SWIPER_CONFIG } from './store/swiper.config';
 import { AuthInterceptorService } from './services/auth.interceptor.service';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './main/auth/auth.effects';
+import { environment } from '../environments/environment';
+
 
 filePondPlugins();
 
@@ -70,6 +75,8 @@ filePondPlugins();
     BrowserModule,
     StoreModule.forRoot(fromApp.appReducer),
     RouterModule.forRoot(appRoutes),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     HttpClientModule,
     QuillModule.forRoot(),
     SwiperModule,

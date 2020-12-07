@@ -217,12 +217,11 @@ input[type="search"] {
   display: -webkit-box;
   display: flex;
   height: 50px;
-  padding: 15px 20px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  flex-flow: row wrap;
+  flex-flow: row-reverse;
   -webkit-box-align: end;
-  align-items: flex-end;
+  align-items: end;
 }
 
 .tools-item {

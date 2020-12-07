@@ -12,6 +12,7 @@ import { ErrorComponent } from '../main/error/error.component';
 import { ProfileComponent } from '../main/profile/profile.component';
 import { AuthGuard } from '../main/auth/auth.guard';
 import { AdminGuard } from '../main/auth/admin.guard';
+import { AuthenticateGuard } from '../main/auth/authenticate.guard';
 
 export const appRoutes: Routes = [
   { path: '', component: MainComponent },
@@ -20,7 +21,7 @@ export const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'donate', component: ContactComponent, canActivate: [AuthGuard] },
   { path: 'gallery', component: GalleryComponent },
-  { path: 'auth', component: AuthComponent },
+  { path: 'auth', component: AuthComponent, canActivate: [AuthenticateGuard] },
   { path: 'campaign', component: CampaignComponent },
   { path: 'create/blog', component: CreateBlogComponent, canActivate: [AdminGuard] },
   { path: 'upload/gallery', component: GalleryUploadComponent, canActivate: [AdminGuard] },
