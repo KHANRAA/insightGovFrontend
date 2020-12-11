@@ -536,3 +536,6 @@ body.dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 body.dark .logo img {
   filter: brightness(100%);
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

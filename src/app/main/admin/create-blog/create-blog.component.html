@@ -2,16 +2,20 @@
 
   <div class="row ">
     <form #createBlog="ngForm" (ngSubmit)="createBlogForPost(createBlog)">
-      <div class="col-md-7 align-items-center text-center">
-        <input class="form-control form-control-lg" type="text" name="title" ngModel
-               placeholder="Enter a nice title..."
-               required/>
+      <div class="col-md-12 m-3">
+        <div class="d-flex flex-wrap align-items-center">
+          <input class="form-control form-control-lg w-75" type="text" name="title" ngModel
+                 placeholder="Enter a nice title..."
+                 required/>
+          <mat-slide-toggle class="ml-5" ngModel name="isHighlight">Highlight Post</mat-slide-toggle>
+        </div>
       </div>
       <div class="col-md-12 min-width-centre">
 
         <file-pond #myPond
                    [options]="pondOptions"
                    [files]="pondFiles"
+                   data-max-files="1"
                    (oninit)="pondHandleInit()"
                    (onaddfile)="pondHandleAddFile($event)">
         </file-pond>
@@ -20,12 +24,32 @@
       <div class="col-md-12">
         <quill-editor [styles]="editorStyle" (onFocus)="focus($event)" (onEditorCreated)="created($event)"
                       (onBlur)="blur($event)" [modules]="config"
-                      #postContent name="description" ngModel required>
+                      #postContent name="content" ngModel required>
         </quill-editor>
 
       </div>
-      <div class="col-md-12 text-center">
-        <button class="btn btn-primary"><i class="fa fa-upload mr-2" aria-hidden="true"></i>Submit....</button>
+
+      <div class="col-md-12 m-3">
+        <mat-form-field class="example-chip-list">
+          <mat-label>Add Tags</mat-label>
+          <mat-chip-list #chipList aria-label="Tag selection">
+            <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                      [removable]="removable" (removed)="remove(tag)">
+              {{tag}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New tag..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12 text-center m-3">
+        <button class="btn btn-outline-primary" [disabled]="disableSubmitButton"><i class="fa fa-upload mr-2"
+                                                                                    aria-hidden="true"></i>Post Blog....
+        </button>
       </div>
 
     </form>

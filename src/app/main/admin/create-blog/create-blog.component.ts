@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+
+
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import * as fromApp from '../../../store/app.reducer';
 import * as AuthActions from '../../auth/auth.actions';
@@ -10,12 +14,16 @@ import { User } from '../../auth/auth.model';
 import { Router } from '@angular/router';
 import 'quill-emoji/dist/quill-emoji.js';
 import Quill from 'quill';
+import { ToastServiceService } from '../../../services/toast/toast-service.service';
+import { CreateBlogService, CreateBlogServiceResponseData } from './createBlogService';
+
 
 const parchment = Quill.import('parchment');
 const block = parchment.query('block');
 block.tagName = 'DIV';
 // or class NewBlock extends Block {} NewBlock.tagName = 'DIV'
 Quill.register(block /* or NewBlock */, true);
+
 
 @Component({
   selector: 'app-create-blog',
@@ -24,17 +32,26 @@ Quill.register(block /* or NewBlock */, true);
   encapsulation: ViewEncapsulation.None
 })
 export class CreateBlogComponent implements OnInit {
-  private user: any;
-  private focused = false;
-  private blurred = false;
 
-  constructor(private http: HttpClient, private router: Router, private store: Store<fromApp.AppState>) {
+  constructor(private http: HttpClient, private createBlogService: CreateBlogService, private router: Router, private store: Store<fromApp.AppState>, private toast: ToastServiceService) {
     this.userSub = this.store.select('auth').pipe(map(authState => authState.user)).subscribe(user => {
       if (!!user) {
         this.user = user;
       }
     });
   }
+
+  private user: any;
+  private isLoading = false;
+  private focused = false;
+  private blurred = false;
+  private tempSavedId: string;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  tags: Array<string> = [];
 
   disableSubmitButton = false;
   private userSub: Subscription;
@@ -48,17 +65,18 @@ export class CreateBlogComponent implements OnInit {
     multiple: false,
     server: {
       url: 'http://localhost:3000/api/blog/',
-      timeout: 10000,
+      timeout: 20000,
       process: {
         url: 'upload',
         method: 'POST',
         headers: {
           'x-dews-token': this.getUserToken(),
         },
+        onerror: (error) => this.toast.toastError({ body: error.data, title: 'Upload Error...' }),
         withCredentials: false,
       },
       revert: {
-        url: '/upload',
+        url: 'upload',
         timeout: 7000,
         method: 'DELETE',
         headers: {
@@ -67,7 +85,11 @@ export class CreateBlogComponent implements OnInit {
         },
       },
     },
-    labelIdle: 'Upload an image....',
+    allowFileSizeValidation: true,
+    allowImageCrop: true,
+    allowImagePreview: true,
+    maxFileSize: '10MB',
+    allowImageFilter: true,
     acceptedFileTypes: 'image/jpeg, image/png, image/jpg'
   };
   pondFiles = [];
@@ -103,6 +125,33 @@ export class CreateBlogComponent implements OnInit {
       ['link', 'image', 'video']                         // link and image, video
     ],
   };
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim() && (value || value.trim()).length > 2) {
+      this.tags.push(value.trim());
+    } else {
+      if (value !== '') {
+        this.toast.toastError({ body: 'Please add minimum 2 characters... ', title: 'Tag error' });
+      }
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(tag: string): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+  }
 
   ngOnInit(): void {
 
@@ -150,7 +199,27 @@ export class CreateBlogComponent implements OnInit {
   }
 
   createBlogForPost(editorFrom: NgForm) {
-    console.warn(editorFrom);
+    // this.disableSubmitButton = true;
+    const formData = editorFrom.value;
+    console.log(formData);
+    if (!this.myPond.getFile()) {
+      this.disableSubmitButton = false;
+      return this.toast.toastError({ body: 'Please Upload a cover Image for Blog ', title: '' });
+    }
+    const fileId = JSON.parse(this.myPond.getFile().serverId).id;
+    console.log(this.tags);
+    this.createBlogService.addBlog(formData, this.tags, fileId).subscribe(resData => {
+
+      console.warn(resData);
+      this.isLoading = false;
+    }, error => {
+      this.toast.toastError({ body: error.data, title: 'Please Try Again...' });
+      if (error.status === 401) {
+        this.store.dispatch(new AuthActions.Logout());
+      }
+      this.isLoading = false;
+    });
+    this.disableSubmitButton = false;
   }
 
 

@@ -56,3 +56,6 @@
 .filepond--root {
   max-width: 30em;
 }
+.example-chip-list {
+  width: 100%;
+}

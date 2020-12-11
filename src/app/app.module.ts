@@ -41,7 +41,11 @@ import { AuthInterceptorService } from './services/auth.interceptor.service';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './main/auth/auth.effects';
 import { environment } from '../environments/environment';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 filePondPlugins();
 
@@ -74,7 +78,7 @@ filePondPlugins();
   imports: [
     BrowserModule,
     StoreModule.forRoot(fromApp.appReducer),
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     HttpClientModule,
@@ -88,6 +92,11 @@ filePondPlugins();
     FormsModule,
     SnotifyModule,
     FilePondModule,
+    BrowserAnimationsModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatSlideToggleModule
   ],
   providers: [
     {
