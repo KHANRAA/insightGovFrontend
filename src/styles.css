@@ -1,5 +1,12 @@
 
+
+/* Please ❤ this if you like it! */
+
+
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext');
+
+/* #Primary
+================================================== */
 
 body{
   font-family: 'Poppins', sans-serif;
@@ -7,7 +14,7 @@ body{
   line-height: 24px;
   font-weight: 400;
   color: #212112;
-  background-image: url('https://storage.googleapis.com/dews_avatars/static/pat-back.svg');
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
   background-position: center;
   background-repeat: repeat;
   background-size: 7%;
@@ -25,9 +32,9 @@ body{
 }
 
 
-.hide {
-  display: none !important;
-}
+/* #Navigation
+================================================== */
+
 .start-header {
   opacity: 1;
   transform: translateY(0);
@@ -313,7 +320,7 @@ h1 span:nth-child(15){
   transition: all 300ms linear;
 }
 #switch {
-  width: 30px;
+  width: 60px;
   height: 8px;
   border: 2px solid #8167a9;
   border-radius: 27px;
@@ -349,6 +356,22 @@ body.hero-anime #switch{
   left: 43px;
   box-shadow: 0 4px 4px rgba(26,53,71,0.25), 0 0 0 1px rgba(26,53,71,0.07);
   background: #fff;
+}
+.nav-item .dropdown-menu {
+  transform: translate3d(0, 10px, 0);
+  visibility: hidden;
+  opacity: 0;
+  max-height: 0;
+  display: block;
+  padding: 0;
+  margin: 0;
+  transition: all 200ms linear;
+}
+.nav-item.show .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  max-height: 999px;
+  transform: translate3d(0, 0px, 0);
 }
 .dropdown-menu {
   padding: 10px!important;

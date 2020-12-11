@@ -1,42 +1,55 @@
 <app-loading-spinner [hidden]="!isLoading"></app-loading-spinner>
 <div class="container form-wrap mt-7rem mb-5" [hidden]="isLoading">
-  <span class="pro">{{ profileUser.role || 'Not Available' }}</span>
+  <span class="pro">{{ profileUser.role }}</span>
   <div class="profile">
-    <img [src]=" profileUser.avatarImageUrl || 'https://storage.googleapis.com/dews_avatars/avatars/men.png'"
+    <img [src]=" profileUser.avatarImageUrl"
          height="118"
          width="118">
     <h1>{{ profileUser.name }}</h1>
     <div class="description">
-      Maddie is a front end web developer in New York. She has worked in the field for 10 years now. Check out her
-      projects in the links below. She is available for hire as well.
+      {{ profileUser.testimonial }}
     </div>
   </div>
   <form method="post" class="mb-5">
     <div>
-      <label for="name">Change Password</label>
-      <input type="text" name="name" required>
+      <label for="password">Change Password</label>
+      <input id="password" type="password" name="password" [min]="6" [maxLength]="40">
     </div>
     <div class="radio">
       <label>
-        <input type="radio" name="sex" value="male">Male
+        <input type="radio" name="sex" [value]="profileUser.gender"
+               [checked]="profileUser.gender.toLowerCase() === 'male'">Male
         <div class="radio-control male"></div>
       </label>
       <label>
-        <input type="radio" name="sex" value="female">Female
+        <input type="radio" name="sex" [value]="profileUser.gender"
+               [checked]="profileUser.gender.toLowerCase() === 'female'">Female
         <div class="radio-control female"></div>
       </label>
     </div>
     <div>
-      <label for="testimonial">Mobile</label>
-      <input type="email" name="email" [value]="profileUser.mobile || ''" required>
+      <label for="number">Mobile</label>
+      <input id="number" type="text" [max]="12" [min]="10" placeholder="Please add mobile no" name="number"
+             [value]="profileUser.mobile">
     </div>
-    <div>
+    <!--    <div>-->
+    <!--      <label for="testimonial">Testimonial</label>-->
+    <!--      <input id="testimonial" type="text" name="testimonial"  placeholder="Write something about us " [max]="100"-->
+    <!--             [min]="30" [value]="profileUser.testimonial">-->
+    <!--    </div>-->
+    <div class="form-group">
       <label for="testimonial">Testimonial</label>
-      <input type="email" name="email" [value]="profileUser.testimonial || ''" required>
+      <textarea [minLength]="0" [maxLength]="100" placeholder="Write Something about us..."
+                [value]="profileUser.testimonial" class="form-control" id="testimonial" rows="4"></textarea>
     </div>
     <div>
-      <label for="testimonial">Address</label>
-      <input type="email" name="email" [value]="profileUser.address" required>
+      <!--      <label for="address">Address</label>-->
+      <!--      <input id="address" type="text" placeholder="Give Your Address" name="address" [min]="10" [max]="70" [value]="profileUser.address">-->
+
+      <label for="address">Address</label>
+      <textarea [minLength]="0" [maxLength]="70" placeholder="Save your address.."
+                [value]="profileUser.address" class="form-control" id="address" rows="3"></textarea>
+
     </div>
     <!--div>
       <label for="country">Страна</label>

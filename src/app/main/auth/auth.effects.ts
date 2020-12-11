@@ -75,7 +75,8 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   redirectHome = this.actions$.pipe(ofType(AuthActions.LOGIN, AuthActions.SIGNUP), tap(() => {
-    this.router.navigate(['/home']);
+    // to-do change later
+    this.router.onSameUrlNavigation = 'reload';
   }));
 
 
@@ -122,7 +123,7 @@ export class AuthEffects {
   authLogout = this.actions$.pipe(ofType(AuthActions.LOGOUT), tap(() => {
     localStorage.removeItem('userData');
     this.authService.clearLogoutTimer();
-    this.router.createUrlTree(['/home']);
+    this.router.navigate(['/home']);
   }));
 
 

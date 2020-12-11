@@ -22,7 +22,6 @@ export class GalleryUploadComponent implements OnInit {
     labelButtonProcessItem: 'Upload...',
     maxParallelUploads: 3,
     maxFiles: 10,
-    labelIdle: 'Upload images...',
     acceptedFileTypes: 'image/jpeg, image/png, image/jpg'
   };
   pondFiles = [];

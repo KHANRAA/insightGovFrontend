@@ -24,20 +24,21 @@
               "src/assets"
             ],
             "styles": [
+              "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/quill/dist/quill.bubble.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill-emoji/dist/quill-emoji.css",
               "node_modules/ng-snotify/styles/material.scss",
               "node_modules/filepond/dist/filepond.min.css",
-              "node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css",
-              "src/styles.css"
+              "node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.slim.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/quill/dist/quill.js"
+              "node_modules/quill/dist/quill.min.js"
             ]
           },
           "configurations": {

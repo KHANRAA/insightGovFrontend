@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './store/app.routes';
 import { ErrorComponent } from './main/error/error.component';
 import { AuthComponent } from './main/auth/auth.component';
-import { CreateBlogComponent } from './main/create-blog/create-blog.component';
+import { CreateBlogComponent } from './main/admin/create-blog/create-blog.component';
 import { CampaignComponent } from './main/campaign/campaign.component';
 import { UserComponent } from './main/user/user.component';
 import { ProfileComponent } from './main/profile/profile.component';
@@ -78,7 +78,12 @@ filePondPlugins();
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     HttpClientModule,
-    QuillModule.forRoot(),
+    QuillModule.forRoot({
+      customOptions: [{
+        import: 'formats/font',
+        whitelist: ['mirza', 'roboto', 'aref', 'serif', 'sansserif', 'monospace']
+      }]
+    }),
     SwiperModule,
     FormsModule,
     SnotifyModule,

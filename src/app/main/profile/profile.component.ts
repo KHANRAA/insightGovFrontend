@@ -16,7 +16,15 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   user: User;
-  profileUser: ProfileResponseData;
+  profileUser: ProfileResponseData = {
+    name: 'Your Name Here',
+    mobile: '',
+    address: '',
+    avatarImageUrl: 'https://storage.googleapis.com/dews_avatars/avatars/men.png',
+    testimonial: '',
+    gender: 'male',
+    role: 'user',
+  };
   isLoading = false;
   private userSub: Subscription;
 
@@ -34,14 +42,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   fetchProfile(id: string) {
     this.profileService.getProfile(id).subscribe(resData => {
-      this.profileUser = resData.data;
-      console.warn(this.profileUser);
+      Object.keys(resData.data).map((key) => {
+        this.profileUser[key] = resData.data[key];
+      });
+      this.isLoading = false;
     }, error => {
       this.toast.toastError({ body: error.data, title: 'Please Try Again...' });
       if (error.status === 401) {
         this.store.dispatch(new AuthActions.Logout());
       }
+      this.isLoading = false;
     });
+
   }
 
 //   this.authService.signInByPassword(email, password).subscribe(resData => {

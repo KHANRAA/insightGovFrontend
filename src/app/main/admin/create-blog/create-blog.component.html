@@ -1,1 +1,36 @@
-<p>create-blog works!</p>
+<div class="container mb-5" style="margin-top: 7rem !important;">
+
+  <div class="row ">
+    <form #createBlog="ngForm" (ngSubmit)="createBlogForPost(createBlog)">
+      <div class="col-md-7 align-items-center text-center">
+        <input class="form-control form-control-lg" type="text" name="title" ngModel
+               placeholder="Enter a nice title..."
+               required/>
+      </div>
+      <div class="col-md-12 min-width-centre">
+
+        <file-pond #myPond
+                   [options]="pondOptions"
+                   [files]="pondFiles"
+                   (oninit)="pondHandleInit()"
+                   (onaddfile)="pondHandleAddFile($event)">
+        </file-pond>
+
+      </div>
+      <div class="col-md-12">
+        <quill-editor [styles]="editorStyle" (onFocus)="focus($event)" (onEditorCreated)="created($event)"
+                      (onBlur)="blur($event)" [modules]="config"
+                      #postContent name="description" ngModel required>
+        </quill-editor>
+
+      </div>
+      <div class="col-md-12 text-center">
+        <button class="btn btn-primary"><i class="fa fa-upload mr-2" aria-hidden="true"></i>Submit....</button>
+      </div>
+
+    </form>
+  </div>
+
+
+</div>
+

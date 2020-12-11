@@ -4,7 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 export interface ProfileResponseData {
-  data: any;
+  data?: any;
   name: string;
   role: string;
   avatarImageUrl: string;

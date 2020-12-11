@@ -11,7 +11,6 @@ import * as AuthActions from '../main/auth/auth.actions';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
@@ -42,9 +41,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
 
-    // $(document).ready(() => {
-    //   $('body.hero-anime').removeClass('hero-anime');
-    // });
+    $(document).ready(() => {
+      $('body.hero-anime').removeClass('hero-anime');
+    });
     $('body').on('mouseenter mouseleave', '.nav-item', (e) => {
       if ($(window).width() > 750) {
         const _d = $(e.target).closest('.¸');

@@ -5,7 +5,7 @@ import { ContactComponent } from '../main/contact/contact.component';
 import { GalleryComponent } from '../main/gallery/gallery.component';
 import { AuthComponent } from '../main/auth/auth.component';
 import { CampaignComponent } from '../main/campaign/campaign.component';
-import { CreateBlogComponent } from '../main/create-blog/create-blog.component';
+import { CreateBlogComponent } from '../main/admin/create-blog/create-blog.component';
 import { GalleryUploadComponent } from '../main/admin/gallery-upload/gallery-upload.component';
 import { UnderConstructionComponent } from '../main/under-construction/under-construction.component';
 import { ErrorComponent } from '../main/error/error.component';
