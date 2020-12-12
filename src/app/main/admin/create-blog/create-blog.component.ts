@@ -87,6 +87,7 @@ export class CreateBlogComponent implements OnInit {
     },
     allowFileSizeValidation: true,
     allowImageCrop: true,
+    imageCropAspectRatio: '1:1',
     allowImagePreview: true,
     maxFileSize: '10MB',
     allowImageFilter: true,
