@@ -211,3 +211,7 @@ body {
 a.disabled {
  cursor: default;
 }
+
+mat-form-field {
+  margin-right: 12px;
+}

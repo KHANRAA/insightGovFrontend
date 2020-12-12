@@ -46,6 +46,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
 
 filePondPlugins();
 
@@ -96,7 +99,10 @@ filePondPlugins();
     MatChipsModule,
     MatFormFieldModule,
     MatIconModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatInputModule
   ],
   providers: [
     {

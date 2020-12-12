@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import { ToastServiceService } from '../../services/toast/toast-service.service';
 import * as AuthActions from '../auth/auth.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-blogs',
@@ -36,7 +37,8 @@ export class BlogsComponent implements OnInit {
   // ];
   blogs: Array<Blog> = [];
 
-  constructor(private blogService: BlogsService, private router: Router, private store: Store<fromApp.AppState>, private toast: ToastServiceService) {
+  constructor(private blogService: BlogsService, private router: Router, private store: Store<fromApp.AppState>,
+              private _snackBar: MatSnackBar, private toast: ToastServiceService) {
   }
 
   ngOnInit(): void {
@@ -52,4 +54,13 @@ export class BlogsComponent implements OnInit {
     });
   }
 
+  openSnackBar() {
+    this._snackBar.open('Please Log in to perform this action', 'Log In', {
+      duration: 7000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
+
 }
+
