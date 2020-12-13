@@ -1,23 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Swiper } from 'swiper';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
+import { Blog, BlogsService } from '../blogs/blogs.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-highligh-card-slider',
   templateUrl: './highligh-card-slider.component.html',
-  styleUrls: ['/node_modules/swiper/swiper-bundle.min.css', './highligh-card-slider.component.scss']
+  styleUrls: ['/node_modules/swiper/swiper-bundle.min.css', './highligh-card-slider.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HighlighCardSliderComponent implements OnInit {
 
-  constructor() {
+  blogs: Array<Blog> = [];
+
+  constructor(private store: Store<fromApp.AppState>, private blogService: BlogsService) {
 
   }
 
   ngOnInit(): void {
+    this.blogService.getBlogs().subscribe(() => {
+      this.store.select('blogs').pipe(map(blogData => blogData.blogs)).subscribe((blogs: Array<Blog>) => {
+        blogs.map(blog => {
+          // if (blog.isHighlight) {
+          //   this.blogs.push(blog);
+          // }
+          this.blogs.push(blog);
+        });
+      });
+    });
     // tslint:disable-next-line:prefer-const
     let swiper = new Swiper('.blog-slider', {
       spaceBetween: 30,
       effect: 'fade',
-      loop: true,
+      observer: true,
+      observeParents: true,
       mousewheel: {
         invert: false,
       },
@@ -25,7 +43,6 @@ export class HighlighCardSliderComponent implements OnInit {
       pagination: {
         el: '.blog-slider__pagination',
         clickable: true,
-        type: 'bullets',
       }
     });
 

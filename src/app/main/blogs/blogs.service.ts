@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-
+import { catchError, map, tap } from 'rxjs/operators';
+import * as fromApp from '../../store/app.reducer';
+import * as BlogsActions from './store/blogs.actions';
+import { Store } from '@ngrx/store';
 
 export interface Author {
   name: string;
@@ -28,10 +30,13 @@ export interface Blogs {
 
 @Injectable({ providedIn: 'root' })
 export class BlogsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private  store: Store<fromApp.AppState>) {}
 
   getBlogs() {
-    return this.http.get<Array<Blog>>('http://localhost:3000/api/blog/blogs').pipe(catchError(this.handleError));
+    return this.http.get<Array<Blog>>('http://localhost:3000/api/blog/blogs').pipe(tap(blogs => {
+      console.warn(blogs);
+      this.store.dispatch(new BlogsActions.GetBlogs(blogs));
+    }));
   }
 
   private handleError = (errResponse: HttpErrorResponse) => {
