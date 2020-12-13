@@ -23,10 +23,9 @@ export class HighlighCardSliderComponent implements OnInit {
     this.blogService.getBlogs().subscribe(() => {
       this.store.select('blogs').pipe(map(blogData => blogData.blogs)).subscribe((blogs: Array<Blog>) => {
         blogs.map(blog => {
-          // if (blog.isHighlight) {
-          //   this.blogs.push(blog);
-          // }
-          this.blogs.push(blog);
+          if (blog.isHighlight) {
+            this.blogs.push(blog);
+          }
         });
       });
     });
