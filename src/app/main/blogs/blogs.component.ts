@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogModel } from './blog.model';
 import { BlogsService, Blogs, Author, Blog } from './blogs.service';
 import { User } from '../auth/auth.model';
-import { HttpClient } from '@angular/common/http';
-import { CreateBlogService } from '../admin/create-blog/createBlogService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
@@ -11,6 +8,7 @@ import { ToastServiceService } from '../../services/toast/toast-service.service'
 import * as AuthActions from '../auth/auth.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blogs',
@@ -27,7 +25,8 @@ export class BlogsComponent implements OnInit {
               private store: Store<fromApp.AppState>,
               private _snackBar: MatSnackBar,
               private toast: ToastServiceService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -49,5 +48,10 @@ export class BlogsComponent implements OnInit {
     });
   }
 
+  bypassHtML(html: string) {
+    const p = document.createElement('p');
+    p.innerHTML = html;
+    return this.sanitizer.bypassSecurityTrustHtml(p.textContent.substr(0, 100));
+  }
 }
 

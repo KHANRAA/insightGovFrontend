@@ -9,11 +9,9 @@
         <div class="blog-slider__content">
           <span class="blog-slider__code">{{ blog.createdAt }}</span>
           <div class="blog-slider__title">{{ blog.title }}</div>
-          <div class="blog-slider__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae
-            voluptate
-            repellendus magni illo Lorem ipsum dolor sit amet consectetur,?
+          <div class="blog-slider__text" [innerHTML]="bypassHtML(blog.content)">
           </div>
-          <a href="#" class="blog-slider__button">READ MORE</a>
+          <a [routerLink]="'/blogs/'+blog.blogId" class="blog-slider__button">READ MORE</a>
         </div>
       </div>
     </div>

@@ -49,6 +49,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
+import { BlogViewComponent } from './main/blogs/blog-view/blog-view.component';
 
 filePondPlugins();
 
@@ -77,6 +78,7 @@ filePondPlugins();
     ProfileComponent,
     CreateCampaignComponent,
     UnderConstructionComponent,
+    BlogViewComponent,
   ],
   imports: [
     BrowserModule,

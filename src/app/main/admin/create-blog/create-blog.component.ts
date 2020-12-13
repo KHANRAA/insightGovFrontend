@@ -183,44 +183,41 @@ export class CreateBlogComponent implements OnInit {
   }
 
   blur($event) {
-    // tslint:disable-next-line:no-console
     console.log('blur', $event);
     this.focused = false;
     this.blurred = true;
   }
 
-  // tslint:disable-next-line:typedef
   pondHandleInit() {
     console.log('FilePond has initialised', this.myPond);
   }
 
-  // tslint:disable-next-line:typedef
   pondHandleAddFile(event: any) {
     console.log('A file was added', event);
   }
 
   createBlogForPost(editorFrom: NgForm) {
-    // this.disableSubmitButton = true;
+    this.isLoading = true;
+    this.disableSubmitButton = true;
     const formData = editorFrom.value;
-    console.log(formData);
     if (!this.myPond.getFile()) {
       this.disableSubmitButton = false;
       return this.toast.toastError({ body: 'Please Upload a cover Image for Blog ', title: '' });
     }
     const fileId = JSON.parse(this.myPond.getFile().serverId).id;
-    console.log(this.tags);
     this.createBlogService.addBlog(formData, this.tags, fileId).subscribe(resData => {
-
-      console.warn(resData);
       this.isLoading = false;
+      this.disableSubmitButton = false;
+      this.toast.toastSuccess({ body: 'Successfully Created the blog ...', title: 'Success' });
+      this.router.createUrlTree(['/blogs']);
     }, error => {
+      this.isLoading = false;
+      this.disableSubmitButton = false;
       this.toast.toastError({ body: error.data, title: 'Please Try Again...' });
-      if (error.status === 401) {
+      if (error.status && error.status === 401) {
         this.store.dispatch(new AuthActions.Logout());
       }
-      this.isLoading = false;
     });
-    this.disableSubmitButton = false;
   }
 
 

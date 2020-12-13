@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import { Blog, BlogsService } from '../blogs/blogs.service';
 import { map } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-highligh-card-slider',
@@ -15,7 +16,7 @@ export class HighlighCardSliderComponent implements OnInit {
 
   blogs: Array<Blog> = [];
 
-  constructor(private store: Store<fromApp.AppState>, private blogService: BlogsService) {
+  constructor(private store: Store<fromApp.AppState>, private blogService: BlogsService, private sanitizer: DomSanitizer) {
 
   }
 
@@ -45,6 +46,12 @@ export class HighlighCardSliderComponent implements OnInit {
       }
     });
 
+  }
+
+  bypassHtML(html: string) {
+    const p = document.createElement('p');
+    p.innerHTML = html;
+    return this.sanitizer.bypassSecurityTrustHtml(p.textContent.substr(0, 150));
   }
 
 }

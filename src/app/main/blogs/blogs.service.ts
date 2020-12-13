@@ -17,6 +17,7 @@ export interface Blog {
   likedBy: number;
   author: Author;
   isHighlight: boolean;
+  content?: string;
   imageUrl: string;
   createdAt: Date;
   tags?: Array<string>;

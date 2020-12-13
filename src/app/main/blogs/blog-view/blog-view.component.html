@@ -1,0 +1,43 @@
+<main class='app__main'>
+  <article class='app__container' *ngIf="blog">
+    <section class='app__editor'>
+      <h3 class="text-center title-style font-weight-bold ">{{ blog.title }}</h3>
+      <div class='app__contents' [innerHTML]="bypassHTML(blog.content)"></div>
+    </section>
+  </article>
+</main>
+
+
+
+<div class="comments">
+  <div class="comment-wrap">
+    <div class="photo">
+      <div class="avatar" style="background-image: url('https://storage.googleapis.com/dews_avatars/avatars/men.png')"></div>
+    </div>
+    <div class="comment-block">
+      <form action="">
+        <textarea name="" id="" cols="30" rows="3" placeholder="Add comment..."></textarea>
+      </form>
+      <div class="bottom-comment" >
+        <ul class="comment-actions" style="margin-bottom: 0rem !important;">
+          <li class="complain">Post</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="comment-wrap">
+    <div class="photo">
+      <div class="avatar" style="background-image: url('https://storage.googleapis.com/dews_avatars/avatars/men.png')"></div>
+    </div>
+    <div class="comment-block">
+      <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto temporibus iste nostrum dolorem natus recusandae incidunt voluptatum. Eligendi voluptatum ducimus architecto tempore, quaerat explicabo veniam fuga corporis totam.</p>
+      <div class="bottom-comment">
+        <div class="comment-date">Aug 23, 2014 @ 10:32 AM</div>
+        <ul class="comment-actions">
+          <li class="complain">Delete</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

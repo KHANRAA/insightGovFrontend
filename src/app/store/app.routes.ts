@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { MainComponent } from '../main/main.component';
 import { BlogsComponent } from '../main/blogs/blogs.component';
+import { BlogViewComponent } from '../main/blogs/blog-view/blog-view.component';
 import { ContactComponent } from '../main/contact/contact.component';
 import { GalleryComponent } from '../main/gallery/gallery.component';
 import { AuthComponent } from '../main/auth/auth.component';
@@ -17,7 +18,10 @@ import { AuthenticateGuard } from '../main/auth/authenticate.guard';
 export const appRoutes: Routes = [
   { path: '', component: MainComponent },
   { path: 'home', component: MainComponent },
-  { path: 'blogs', component: BlogsComponent },
+  {
+    path: 'blogs', component: BlogsComponent
+  },
+  { path: 'blogs/:id', component: BlogViewComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'donate', component: ContactComponent, canActivate: [AuthGuard] },
   { path: 'gallery', component: GalleryComponent },

@@ -22,11 +22,10 @@ export class CreateBlogService {
   };
 
   addBlog(blogData: any, tags: Array<string>, coverRef: string) {
-    console.log(blogData);
     return this.http.post<CreateBlogServiceResponseData>('http://localhost:3000/api/blog/add', {
       title: blogData.title,
       content: blogData.content,
-      isHighlight: blogData.isHighlight,
+      isHighlight: (!(blogData.isHighlight === '' || blogData.isHighlight === false)),
       imageUrl: coverRef,
       tags,
     }).pipe(catchError(this.handleError));

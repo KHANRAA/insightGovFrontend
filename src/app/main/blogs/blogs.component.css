@@ -167,12 +167,13 @@ body {
 .blog-card:hover .details {
   left: 0%;
 }
-@media (min-width: 640px) {
+@media (min-width: 300px) {
   .blog-card {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     flex-direction: row;
-    max-width: 700px;
+    max-width: 80% !important;
+    min-height: 300px !important;
   }
   .blog-card .meta {
     flex-basis: 40%;
