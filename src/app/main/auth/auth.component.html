@@ -6,7 +6,7 @@
         <div class="form-container sign-up-container">
           <form #signUpForm="ngForm" (ngSubmit)="signUpByPassword(signUpForm)">
             <h1>Create Account</h1>
-            <div class="social-container">
+            <div class="social-container" style="display: none !important;">
               <a class="social" (click)="facebookLogin();"><i class="fab fa-facebook-f"></i></a>
               <a class="social" id="google2" #google2 (click)="googleLogin(google2)"><i
                 class="fab fa-google-plus-g"></i></a>
@@ -23,7 +23,7 @@
         <div class="form-container sign-in-container">
           <form #signInForm="ngForm" (ngSubmit)="signInByPassword(signInForm)">
             <h1>Sign in</h1>
-            <div class="social-container">
+            <div class="social-container" style="display: none !important;">
               <a class="social" (click)="facebookLogin();"><i class="fab fa-facebook-f"></i></a>
               <a class="social" id="google1" #google1 (click)="googleLogin(google1)"><i
                 class="fab fa-google-plus-g"></i></a>

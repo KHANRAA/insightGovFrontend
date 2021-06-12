@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-highligh-card-slider',
   templateUrl: './highligh-card-slider.component.html',
-  styleUrls: ['/node_modules/swiper/swiper-bundle.min.css', './highligh-card-slider.component.scss'],
+  styleUrls: ['./highligh-card-slider.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class HighlighCardSliderComponent implements OnInit {

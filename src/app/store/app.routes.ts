@@ -14,6 +14,8 @@ import { ProfileComponent } from '../main/profile/profile.component';
 import { AuthGuard } from '../main/auth/auth.guard';
 import { AdminGuard } from '../main/auth/admin.guard';
 import { AuthenticateGuard } from '../main/auth/authenticate.guard';
+import { CreateCampaignComponent } from '../main/admin/create-campaign/create-campaign.component';
+import { UserManagementComponent } from '../main/admin/user-management/user-management.component';
 
 export const appRoutes: Routes = [
   { path: '', component: MainComponent },
@@ -30,8 +32,8 @@ export const appRoutes: Routes = [
   { path: 'create/blog', component: CreateBlogComponent, canActivate: [AdminGuard] },
   { path: 'upload/gallery', component: GalleryUploadComponent, canActivate: [AdminGuard] },
   { path: 'requests/contact', component: UnderConstructionComponent, canActivate: [AdminGuard] },
-  { path: 'view/users', component: UnderConstructionComponent, canActivate: [AdminGuard] },
-  { path: 'create/campaign', component: UnderConstructionComponent, canActivate: [AdminGuard] },
+  { path: 'view/users', component: UserManagementComponent, canActivate: [AdminGuard] },
+  { path: 'create/campaign', component: CreateCampaignComponent, canActivate: [AdminGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'error', component: ErrorComponent },
 ];

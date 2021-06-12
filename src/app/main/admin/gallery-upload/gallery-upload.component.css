@@ -13,7 +13,13 @@
   font-family: 'Roboto', sans-serif;
 }
 
-
+.container{
+  display:  flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 4;
+  flex-flow: column wrap;
+}
 
 h2 {
   font-size: 22px;

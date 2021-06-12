@@ -20,14 +20,10 @@ export class BlogViewComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = params.id;
-      this.blogService.getBlogs().subscribe(() => {
-        this.store.select('blogs').pipe(map(blogData => blogData.blogs)).subscribe((blogs: Array<Blog>) => {
-          blogs.map((singleBlog) => {
-            if (singleBlog.blogId === this.id) {
-              this.blog = JSON.parse(JSON.stringify(singleBlog));
-            }
-          });
+      this.blogService.getBlog(this.id).subscribe(() => {
+        this.store.select('blogs').pipe(map(blogData => blogData.blog)).subscribe((blog: Blog) => {
           console.log(this.blog);
+          this.blog = blog;
         });
       });
     });

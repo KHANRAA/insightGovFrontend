@@ -3,10 +3,12 @@ import * as BlogsActions from './blogs.actions';
 
 export interface State {
   blogs: Array<Blog>;
+  blog;
 }
 
 const initialState: State = {
-  blogs: []
+  blogs: [],
+  blog: {}
 };
 
 export function blogsReducer(state = initialState, action: BlogsActions.BlogsActions) {
@@ -16,6 +18,11 @@ export function blogsReducer(state = initialState, action: BlogsActions.BlogsAct
       return {
         ...state,
         blogs: [...action.payload]
+      };
+    case BlogsActions.GET_BLOG:
+      return {
+        ...state,
+        blog: JSON.parse(JSON.stringify(action.payload))
       };
     default:
       return state;

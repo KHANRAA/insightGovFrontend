@@ -1,6 +1,7 @@
 <main class='app__main'>
   <article class='app__container' *ngIf="blog">
     <section class='app__editor'>
+      <mat-card> <img mat-card-image [src]="blog.imageUrl" [alt]="blog.blogId" style="max-height: 500px !important;"></mat-card>
       <h3 class="text-center title-style font-weight-bold ">{{ blog.title }}</h3>
       <div class='app__contents' [innerHTML]="bypassHTML(blog.content)"></div>
     </section>

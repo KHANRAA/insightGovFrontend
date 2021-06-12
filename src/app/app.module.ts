@@ -47,9 +47,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { BlogViewComponent } from './main/blogs/blog-view/blog-view.component';
+import { MatSelectModule } from '@angular/material/select';
+import { A11yModule } from '@angular/cdk/a11y';
+import { MatCardModule } from '@angular/material/card';
 
 filePondPlugins();
 
@@ -80,32 +86,38 @@ filePondPlugins();
     UnderConstructionComponent,
     BlogViewComponent,
   ],
-  imports: [
-    BrowserModule,
-    StoreModule.forRoot(fromApp.appReducer),
-    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
-    EffectsModule.forRoot([AuthEffects]),
-    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
-    HttpClientModule,
-    QuillModule.forRoot({
-      customOptions: [{
-        import: 'formats/font',
-        whitelist: ['mirza', 'roboto', 'aref', 'serif', 'sansserif', 'monospace']
-      }]
-    }),
-    SwiperModule,
-    FormsModule,
-    SnotifyModule,
-    FilePondModule,
-    BrowserAnimationsModule,
-    MatChipsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatInputModule
-  ],
+    imports: [
+        BrowserModule,
+        StoreModule.forRoot(fromApp.appReducer),
+        RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+        EffectsModule.forRoot([AuthEffects]),
+        StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+        HttpClientModule,
+        QuillModule.forRoot({
+            customOptions: [{
+                import: 'formats/font',
+                whitelist: ['mirza', 'roboto', 'aref', 'serif', 'sansserif', 'monospace']
+            }]
+        }),
+        SwiperModule,
+        FormsModule,
+        SnotifyModule,
+        FilePondModule,
+        BrowserAnimationsModule,
+        MatChipsModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatSlideToggleModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatTableModule,
+        MatSelectModule,
+        A11yModule,
+        MatCardModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

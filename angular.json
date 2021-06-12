@@ -32,7 +32,8 @@
               "node_modules/quill-emoji/dist/quill-emoji.css",
               "node_modules/ng-snotify/styles/material.scss",
               "node_modules/filepond/dist/filepond.min.css",
-              "node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css"
+              "node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css",
+              "node_modules/swiper/swiper-bundle.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.slim.min.js",
