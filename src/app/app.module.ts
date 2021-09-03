@@ -56,6 +56,9 @@ import { BlogViewComponent } from './main/blogs/blog-view/blog-view.component';
 import { MatSelectModule } from '@angular/material/select';
 import { A11yModule } from '@angular/cdk/a11y';
 import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 filePondPlugins();
 
@@ -86,38 +89,41 @@ filePondPlugins();
     UnderConstructionComponent,
     BlogViewComponent,
   ],
-    imports: [
-        BrowserModule,
-        StoreModule.forRoot(fromApp.appReducer),
-        RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
-        EffectsModule.forRoot([AuthEffects]),
-        StoreDevtoolsModule.instrument({ logOnly: environment.production }),
-        HttpClientModule,
-        QuillModule.forRoot({
-            customOptions: [{
-                import: 'formats/font',
-                whitelist: ['mirza', 'roboto', 'aref', 'serif', 'sansserif', 'monospace']
-            }]
-        }),
-        SwiperModule,
-        FormsModule,
-        SnotifyModule,
-        FilePondModule,
-        BrowserAnimationsModule,
-        MatChipsModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatSlideToggleModule,
-        MatButtonModule,
-        MatSnackBarModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatTableModule,
-        MatSelectModule,
-        A11yModule,
-        MatCardModule
-    ],
+  imports: [
+    BrowserModule,
+    StoreModule.forRoot(fromApp.appReducer),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+    HttpClientModule,
+    QuillModule.forRoot({
+      customOptions: [{
+        import: 'formats/font',
+        whitelist: ['mirza', 'roboto', 'aref', 'serif', 'sansserif', 'monospace']
+      }]
+    }),
+    SwiperModule,
+    FormsModule,
+    SnotifyModule,
+    FilePondModule,
+    BrowserAnimationsModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTableModule,
+    MatSelectModule,
+    A11yModule,
+    MatCardModule,
+    MatRadioModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -14,6 +14,8 @@ import * as fromApp from '../../../store/app.reducer';
 import { ToastServiceService } from '../../../services/toast/toast-service.service';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import 'quill-emoji/dist/quill-emoji.js';
+import Quill from 'quill';
 
 const moment = _rollupMoment || _moment;
 
@@ -57,6 +59,7 @@ export class CreateCampaignComponent implements OnInit {
   date = new FormControl(moment());
   minDate: Date;
   maxDate: Date;
+  private donationType: string;
   private userSub: Subscription;
   private user: any;
   private isLoading = false;
@@ -66,6 +69,7 @@ export class CreateCampaignComponent implements OnInit {
 
   constructor(private createCampaignSerice: CreateCampaignService, private router: Router, private store: Store<fromApp.AppState>, private toast: ToastServiceService) {
     const currentYear = new Date().getFullYear();
+    const donations = [];
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 11, 31);
     this.userSub = this.store.select('auth').pipe(map(authState => authState.user)).subscribe(user => {
@@ -75,16 +79,53 @@ export class CreateCampaignComponent implements OnInit {
     });
   }
 
-  donations: Donation[] = [
-    { value: 'donation', viewValue: 'Donation' },
-    { value: 'free', viewValue: 'Non Donation' },
+  availableDonationTypes = [
+    { name: 'Donation', id: 'donation' },
+    { name: 'Free', id: 'free' }
   ];
-  selectedDonation = this.donations[0].value;
+  selectedDonation = this.availableDonationTypes[0].name;
 
   // selectCar(event: Event) {
   //   this.selectedCar = (event.target as HTMLSelectElement).value;
   // }
 
+
+  editorStyle = {
+    background: 'white',
+  };
+
+  created(event: Quill) {
+    // tslint:disable-next-line:no-console
+    console.log('editor-created', event);
+  }
+
+  config = {
+    'emoji-toolbar': true,
+    'emoji-textarea': true,
+    'emoji-shortname': true,
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+
+      [{ header: 1 }, { header: 2 }],               // custom button values
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],      // superscript/subscript
+      [{ indent: '-1' }, { indent: '+1' }],          // outdent/indent
+      [{ direction: 'rtl' }],                         // text direction
+
+      [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }],          // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+      ['emoji'],
+
+      ['clean'],                                         // remove formatting button
+
+      ['link', 'image']                         // link and image, video
+    ],
+  };
 
   pondOptions = {
     multiple: false,

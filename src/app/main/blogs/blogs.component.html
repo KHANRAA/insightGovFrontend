@@ -16,22 +16,20 @@
     </div>
     <div class="description">
       <h1>{{ blog.title }}</h1>
-      <p [innerHTML]="bypassHtML(blog.content)"> </p>
+      <p [innerHTML]="bypassHtML(blog.content)"></p>
       <p class="read-more text-center">
         <a [routerLink]="[blog.blogId]">Read More</a>
       </p>
     </div>
   </div>
 
-<!--  <mat-form-field>-->
-<!--    <mat-label>Message</mat-label>-->
-<!--    <input matInput value="Disco party!" #message>-->
-<!--  </mat-form-field>-->
+  <!--  <mat-form-field>-->
+  <!--    <mat-label>Message</mat-label>-->
+  <!--    <input matInput value="Disco party!" #message>-->
+  <!--  </mat-form-field>-->
 
-<!--  <mat-form-field>-->
-<!--    <mat-label>Action</mat-label>-->
-<!--    <input matInput value="Dance" #action>-->
-<!--  </mat-form-field>-->
-
-  <button mat-stroked-button (click)="openSnackBar()">Show snack-bar</button>
+  <!--  <mat-form-field>-->
+  <!--    <mat-label>Action</mat-label>-->
+  <!--    <input matInput value="Dance" #action>-->
+  <!--  </mat-form-field>-->
 </div>

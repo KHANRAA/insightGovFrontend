@@ -1,10 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-.filepond--credits{
+.filepond--credits {
   display: none !important;
 
 }
-.min-width-centre{
+
+.min-width-centre {
   margin: 0 auto;
 }
 
@@ -16,8 +18,8 @@ mat-form-field {
   font-family: 'Roboto', sans-serif;
 }
 
-.container{
-  display:  flex;
+.container {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   flex-grow: 4;
@@ -33,6 +35,7 @@ h2 {
   font-family: 'Roboto', sans-serif;
   margin-bottom: 10px !important;
 }
+
 .filepond--drop-label {
   color: #4c4e53;
 }
@@ -70,8 +73,9 @@ h2 {
 form {
   padding: 20px;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 80%;
 }
+
 form h1 {
   padding-bottom: 10px;
   margin-bottom: 25px;
@@ -81,26 +85,31 @@ form h1 {
   color: #ff5722;
   border-bottom: 1px solid #ccc;
 }
+
 form .row {
   margin-bottom: 25px;
   position: relative;
   overflow: hidden;
 }
+
 form input[type=text], form input[type=password], form textarea {
-  width: 100%;
+  width: 80%;
   height: 40px;
   padding: 10px 10px 10px 90px;
   box-sizing: border-box;
   border: 1px solid #ccc;
+  text-align: center;
   color: #333;
   border-radius: 3px;
   transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
 }
+
 form textarea {
   height: auto;
   min-height: 200px;
   padding: 50px 10px 10px 10px;
 }
+
 form input[type=text] + label, form input[type=password] + label, form textarea + label {
   position: absolute;
   top: 0;
@@ -110,7 +119,7 @@ form input[type=text] + label, form input[type=password] + label, form textarea 
   line-height: 40px;
   font-size: 12px;
   font-weight: bold;
-  width: 80px;
+  width: 95px;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   text-align: center;
   text-transform: uppercase;
@@ -121,22 +130,28 @@ form input[type=text] + label, form input[type=password] + label, form textarea 
   transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
   transform: translateZ(0) translateX(0);
 }
+
 form textarea + label {
   width: 100%;
   border-radius: 3px 3px 0 0;
 }
+
 form input[type=text]:focus, form input[type=password]:focus {
   padding-left: 10px;
 }
+
 form textarea:focus {
   padding-top: 10px;
 }
+
 form input[type=text]:focus + label, form input[type=password]:focus + label {
   transform: translateZ(0) translateX(-100%);
 }
+
 form textarea:focus + label {
   transform: translateZ(0) translateY(-100%);
 }
+
 form input[type=checkbox], form input[type=radio] {
   position: absolute;
   overflow: hidden;
@@ -146,6 +161,7 @@ form input[type=checkbox], form input[type=radio] {
   margin: -1px;
   padding: 0;
 }
+
 form input[type=radio] + label {
   position: relative;
   display: inline-block;
@@ -158,6 +174,7 @@ form input[type=radio] + label {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
 }
+
 form input[type=radio] + label:before {
   content: "";
   position: absolute;
@@ -176,6 +193,7 @@ form input[type=radio] + label:before {
 form input[type=radio]:checked + label:before {
   transform: translateZ(0) translate(-50%, -50%) scale(1);
 }
+
 form input[type=checkbox] + label {
   position: relative;
   display: inline-block;
@@ -190,8 +208,67 @@ form input[type=checkbox] + label {
 }
 
 
+.ql-editor {
+  min-height: 300px;
+  min-width: 100%;
+}
+
+.ql-editor:focus {
+  border: 1px solid #80bdff !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
 
 form button:hover:before, form button:focus:before {
   transform: scale(1);
   transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
+}
+
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.m-l-15 {
+  margin-left: 15%;
+}
+
+
+h1 {
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  font-family: "Open Sans";
+  font-weight: 100;
+  text-align: center;
+  color: #ff5722;
+  border-bottom: 1px solid #ccc;
+
+
 }

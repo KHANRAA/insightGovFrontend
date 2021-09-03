@@ -12,6 +12,12 @@ export interface Author {
   id: string;
 }
 
+export interface Comment {
+  _id: string;
+  user: Author;
+  comment: string;
+}
+
 export interface Blog {
   blogId: string;
   title: string;
@@ -21,6 +27,7 @@ export interface Blog {
   content?: string;
   imageUrl: string;
   createdAt: Date;
+  comments: Array<Comment>;
   tags?: Array<string>;
 }
 
@@ -52,6 +59,34 @@ export class BlogsService {
     }).pipe(tap(blog => {
       // console.log(blog);
       this.store.dispatch(new BlogsActions.GetBlog(blog));
+    }), catchError(errResponse => {
+      if (!errResponse.error || !errResponse.error.data) {
+        return of(new AuthActions.LoginFail({ body: 'Unknown Error Occured', title: 'Unknown Error' }));
+      }
+      return of(new AuthActions.LoginFail({ body: errResponse.error.data, title: 'Sign Up Error' }));
+    }));
+  }
+
+  postComment(id, comment) {
+    return this.http.put<Comment>('http://localhost:3000/api/blog/comment', {
+      id, comment
+    }).pipe(tap(commentObj => {
+      // console.log(blog);
+      this.store.dispatch(new BlogsActions.AddComment(commentObj));
+    }), catchError(errResponse => {
+      if (!errResponse.error || !errResponse.error.data) {
+        return of(new AuthActions.LoginFail({ body: 'Unknown Error Occured', title: 'Unknown Error' }));
+      }
+      return of(new AuthActions.LoginFail({ body: errResponse.error.data, title: 'Sign Up Error' }));
+    }));
+  }
+
+  deleteComment(blogId, commentId) {
+    return this.http.post<Comment>('http://localhost:3000/api/blog/deleteComment', {
+      blogId, commentId
+    }).pipe(tap(commentObj => {
+      // console.log(blog);
+      this.store.dispatch(new BlogsActions.DeleteComment(commentObj));
     }), catchError(errResponse => {
       if (!errResponse.error || !errResponse.error.data) {
         return of(new AuthActions.LoginFail({ body: 'Unknown Error Occured', title: 'Unknown Error' }));

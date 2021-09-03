@@ -10,7 +10,8 @@
     "build:prod": "ng build --prod",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:ci": "npm run clean && npm run test && npm run build:prod"
+    "build:ci": "npm run clean && npm run test && npm run build:prod",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {

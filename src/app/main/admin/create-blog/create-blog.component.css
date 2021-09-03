@@ -1,4 +1,4 @@
-
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 .min-width-centre{
   max-width: 30em;
   margin: 0 auto;
@@ -59,3 +59,4 @@
 .example-chip-list {
   width: 100%;
 }
+

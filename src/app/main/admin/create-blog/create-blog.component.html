@@ -22,7 +22,7 @@
 
       </div>
       <div class="col-md-12">
-        <quill-editor [styles]="editorStyle" (onFocus)="focus($event)" (onEditorCreated)="created($event)"
+        <quill-editor [styles]="editorStyle" (onFocus)="focus($event)" format="json"  (onEditorCreated)="created($event)"
                       (onBlur)="blur($event)" [modules]="config"
                       #postContent name="content" ngModel required>
         </quill-editor>

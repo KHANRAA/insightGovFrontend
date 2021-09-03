@@ -134,7 +134,7 @@ export class AuthComponent implements OnInit {
       return;
     }
     const email = form.value.email;
-    const name = form.value.password;
+    const name = form.value.name;
     const password = form.value.password;
     this.store.dispatch(new AuthActions.SignUpStart({ name, email, password }));
     // this.authService.signUpByPassword(name, email, password).subscribe(resData => {

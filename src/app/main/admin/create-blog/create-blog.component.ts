@@ -123,7 +123,7 @@ export class CreateBlogComponent implements OnInit {
 
       ['clean'],                                         // remove formatting button
 
-      ['link', 'image', 'video']                         // link and image, video
+      ['link', 'image']                         // link and image, video
     ],
   };
 
