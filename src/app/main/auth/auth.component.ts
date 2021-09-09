@@ -128,6 +128,17 @@ export class AuthComponent implements OnInit {
     form.reset();
   }
 
+  signInByOtp(form: NgForm) {
+    if (!form.valid) {
+      return this.toast.toastError({ body: 'Mobile Number is not valid', title: 'Unknown Mobile Number' });
+    }
+    const mobileNumber: string = form.value.number.toString();
+    if (mobileNumber.length < 10 || mobileNumber.length > 15) {
+      return this.toast.toastError({ body: 'Mobile Number is not valid.', title: 'please recheck' });
+    }
+    this.store.dispatch(new AuthActions.SendOtp({ mobileNumber }));
+  }
+
   signUpByPassword(form: NgForm) {
     if (!form.valid) {
       this.toast.toastError({ body: 'Sign Up form is not valid ...', title: 'SignIn Error' });

@@ -1,66 +1,141 @@
 <app-loading-spinner [hidden]="!isLoading"></app-loading-spinner>
-<div class="container form-wrap mt-7rem mb-5" [hidden]="isLoading">
-  <span class="pro">{{ profileUser.role }}</span>
-  <div class="profile">
-    <img [src]=" profileUser.avatarImageUrl"
-         height="118"
-         width="118">
-    <h1>{{ profileUser.name }}</h1>
-    <div class="description">
-      {{ profileUser.testimonial }}
-    </div>
+<div class="container   mt-7rem mb-5 custom-profile" [hidden]="isLoading">
+
+  <div id='settings'>
+    <input checked class='nav-profile' name='nav-profile' type='radio'>
+    <span class='nav-profile'>Profile</span>
+    <input class='nav-profile' name='nav-profile' type='radio'>
+    <span class='nav-profile'>Account</span>
+    <input class='nav-profile' name='nav-profile' type='radio'>
+    <span class='nav-profile'>Engagements</span>
+    <input class='nav-profile' name='nav-profile' type='radio'>
+    <span class='nav-profile'>Transactions</span>
+    <main class='content'>
+      <section id='profile'>
+        <span class="pro">{{ profileUser.role }}</span>
+        <div class="avatar-upload">
+          <div class="avatar-edit">
+            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" (change)="readURL($event)"/>
+            <label for="imageUpload"></label>
+          </div>
+          <div class="avatar-preview">
+            <div id="imagePreview" [ngStyle]="{'background-image': 'url(' + profileUser.avatarImageUrl + ')'}">
+            </div>
+          </div>
+        </div>
+        <form>
+          <ul>
+            <li>
+              <fieldset class='material '>
+                <div>
+                  <input required type='text' [value]="profileUser.name ? profileUser.name : ''"
+                         placeholder="Please Enter Your Name ...">
+                  <label>Name</label>
+                  <hr>
+                </div>
+              </fieldset>
+            </li>
+            <li>
+              <fieldset>
+                <div>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Gender</mat-label>
+                    <mat-select [(ngModel)]="selectedGender" name="food">
+                      <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                        {{gender.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </fieldset>
+            </li>
+            <li>
+              <fieldset class='material'>
+                <div>
+                  <input required type='text' [value]="profileUser.address ? profileUser.address : ''">
+                  <label>Address</label>
+                  <hr>
+                </div>
+              </fieldset>
+            </li>
+
+            <li class='large'>
+              <fieldset class='material'>
+                <div>
+                  <input required type='text' [value]="profileUser.testimonial ? profileUser.testimonial : ''">
+                  <label>Testimonial</label>
+                  <hr>
+                </div>
+              </fieldset>
+            </li>
+            <li class='large padding'>
+              <fieldset class='material-button center'>
+                <div>
+                  <input class='save' type='submit' value='Save'>
+                </div>
+              </fieldset>
+            </li>
+          </ul>
+        </form>
+      </section>
+      <section id='account'>
+        <form>
+          <ul>
+            <li>
+              <fieldset class='material'>
+                <div>
+                  <input required type='text' [value]="profileUser.email ? profileUser.email : ''"
+                         placeholder="Please enter your email address">
+                  <label>Email</label>
+                  <hr>
+                </div>
+              </fieldset>
+            </li>
+            <li>
+              <fieldset class='material'>
+                <div>
+                  <input required type='tel'>
+                  <label>Contact Number</label>
+                  <hr>
+                </div>
+              </fieldset>
+            </li>
+<!--            <li>-->
+<!--              <fieldset class='material'>-->
+<!--                <div>-->
+<!--                  <input required type='password'>-->
+<!--                  <label>Password</label>-->
+<!--                  <hr>-->
+<!--                </div>-->
+<!--              </fieldset>-->
+<!--            </li>-->
+<!--            <li class='padding'>-->
+<!--              <fieldset class='material-button'>-->
+<!--                <div>-->
+<!--                  <button class='connect fb'>-->
+<!--                    <span>Link Facebook Account</span>-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              </fieldset>-->
+<!--            </li>-->
+            <li class='large padding'>
+              <fieldset class='material-button center'>
+                <div>
+                  <input class='save' type='submit' value='Save'>
+                </div>
+              </fieldset>
+            </li>
+          </ul>
+        </form>
+      </section>
+      <section class='upcoming' id='engagements'>
+        <h1>Coming&nbsp;soon!</h1>
+      </section>
+      <section class='upcoming' id='transactions'>
+        <h1>Coming&nbsp;soon!</h1>
+      </section>
+    </main>
   </div>
-  <form method="post" class="mb-5">
-    <div>
-      <label for="password">Change Password</label>
-      <input id="password" type="password" name="password" [min]="6" [maxLength]="40">
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="sex" [value]="profileUser.gender"
-               [checked]="profileUser.gender.toLowerCase() === 'male'">Male
-        <div class="radio-control male"></div>
-      </label>
-      <label>
-        <input type="radio" name="sex" [value]="profileUser.gender"
-               [checked]="profileUser.gender.toLowerCase() === 'female'">Female
-        <div class="radio-control female"></div>
-      </label>
-    </div>
-    <div>
-      <label for="number">Mobile</label>
-      <input id="number" type="text" [max]="12" [min]="10" placeholder="Please add mobile no" name="number"
-             [value]="profileUser.mobile">
-    </div>
-    <!--    <div>-->
-    <!--      <label for="testimonial">Testimonial</label>-->
-    <!--      <input id="testimonial" type="text" name="testimonial"  placeholder="Write something about us " [max]="100"-->
-    <!--             [min]="30" [value]="profileUser.testimonial">-->
-    <!--    </div>-->
-    <div class="form-group">
-      <label for="testimonial">Testimonial</label>
-      <textarea [minLength]="0" [maxLength]="100" placeholder="Write Something about us..."
-                [value]="profileUser.testimonial" class="form-control" id="testimonial" rows="4"></textarea>
-    </div>
-    <div>
-      <!--      <label for="address">Address</label>-->
-      <!--      <input id="address" type="text" placeholder="Give Your Address" name="address" [min]="10" [max]="70" [value]="profileUser.address">-->
 
-      <label for="address">Address</label>
-      <textarea [minLength]="0" [maxLength]="70" placeholder="Save your address.."
-                [value]="profileUser.address" class="form-control" id="address" rows="3"></textarea>
 
-    </div>
-    <!--div>
-      <label for="country">Страна</label>
-      <select name="country">
-        <option>Выберите страну проживания</option>
-        <option value="Россия">Россия</option>
-        <option value="Украина">Украина</option>
-        <option value="Беларусь">Беларусь</option>
-      </select>
-      <div class="select-arrow"></div>
-    </div-->
-    <button type="submit">Save</button>
-  </form>
 </div>

@@ -43,6 +43,25 @@ export class AuthEffects {
       }));
     }));
 
+
+  @Effect()
+  authSendOtp = this.actions$.pipe(ofType(AuthActions.SEND_OTP),
+    switchMap((sendOtpAction: AuthActions.SendOtp) => {
+      return this.http.post<AuthResponseData>('http://localhost:3000/api/auth/register/otp', {
+        mobileNumber: sendOtpAction.payload.mobileNumber,
+      }).pipe(map(resData => {
+        return new AuthActions.OtpSend({
+          status: resData.data.status,
+        });
+      }), catchError(errResponse => {
+        if (!errResponse.error || !errResponse.error.data) {
+          return of(new AuthActions.LoginFail({ body: 'Unknown Error Occured', title: 'Unknown Error' }));
+        }
+        return of(new AuthActions.LoginFail({ body: errResponse.error.data, title: 'Sign Up Error' }));
+      }));
+    }));
+
+
   @Effect()
   authLogin = this.actions$.pipe(
     ofType(AuthActions.LOGIN_START),

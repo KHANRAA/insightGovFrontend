@@ -31,22 +31,26 @@
             <span>or use your account</span>
             <input class="form-control" type="email" id="email1" placeholder="Email" ngModel name="email" required
                    email/>
-            <input class="form-control" type="password" id="password1" ngModel required name="password"
-                   placeholder="Password" minlength="6" maxlength="40"/>
+<!--            <input class="form-control" type="number" id="number" placeholder="Mobile Number" [minlength]="8"-->
+<!--                   [maxlength]="15" ngModel name="number" required/>-->
+
+                        <input class="form-control" type="password" id="password1" ngModel required name="password"
+                               placeholder="Password" minlength="6" maxlength="40"/>
             <a href="#">Forget your password?</a>
             <button type="submit" [disabled]="!signInForm.valid">Sign In</button>
           </form>
+          <div class="alert alert-info" style="display: none;"></div>
         </div>
         <div class="overlay-container">
           <div class="overlay">
             <div class="overlay-panel overlay-left">
               <h1>Welcome Back!</h1>
               <p>To keep connected with us please login with your personal info</p>
-              <button class="ghost" id="signIn" (click)="signInClicked()">Sign In</button>
+              <button class="ghost" id="signIn" (click)="signInClicked()">Log In</button>
             </div>
             <div class="overlay-panel overlay-right">
               <h1>Hello, Visitor!</h1>
-              <p>Enter your personal details and start journey with us</p>
+              <p>Enter your personal details to be a part of dews family</p>
               <button class="ghost" id="signUp" (click)="signUpClicked()">Sign Up</button>
             </div>
           </div>

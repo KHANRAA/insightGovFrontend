@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { User } from '../auth/auth.model';
 import { ToastServiceService } from '../../services/toast/toast-service.service';
 import { Store } from '@ngrx/store';
@@ -6,18 +6,26 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from '../auth/auth.actions';
-import { ProfileService, ProfileResponseData } from './profile.service';
+import { ProfileResponseData, ProfileService } from './profile.service';
 import { Router } from '@angular/router';
 
+interface Gender {
+  value: string;
+  viewValue: string;
+}
+
+
 @Component({
+  moduleId: 'profile-page',
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   user: User;
   profileUser: ProfileResponseData = {
     name: 'Your Name Here',
+    email: '',
     mobile: '',
     address: '',
     avatarImageUrl: 'https://storage.googleapis.com/dews_avatars/avatars/men.png',
@@ -25,6 +33,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     gender: 'male',
     role: 'user',
   };
+
+  selectedGender: string;
+
+  genders: Gender[] = [
+    { value: 'm', viewValue: 'Male' },
+    { value: 'f', viewValue: 'Female' },
+    { value: 'o', viewValue: 'Other' }
+  ];
+
   isLoading = false;
   private userSub: Subscription;
 
@@ -68,5 +85,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }
+
+
+  readURL(input) {
+    if (input.target.files && input.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.profileUser.avatarImageUrl = (e.target.result as string);
+      };
+      reader.readAsDataURL(input.target.files[0]);
+    }
+  }
+
 
 }

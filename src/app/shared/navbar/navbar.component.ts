@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import * as $ from 'jquery';
-import { AuthService } from '../main/auth/auth.service';
+import { AuthService } from '../../main/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../store/app.reducer';
+import * as fromApp from '../../store/app.reducer';
 import { map } from 'rxjs/operators';
-import * as AuthActions from '../main/auth/auth.actions';
+import * as AuthActions from '../../main/auth/auth.actions';
 
 @Component({
   selector: 'app-navbar',

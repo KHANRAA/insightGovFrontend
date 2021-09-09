@@ -5,6 +5,7 @@ import { throwError } from 'rxjs';
 
 export interface ProfileResponseData {
   data?: any;
+  email: string;
   name: string;
   role: string;
   avatarImageUrl: string;

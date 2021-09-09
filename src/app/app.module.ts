@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 import { MainComponent } from './main/main.component';
 import { HighlighCardSliderComponent } from './main/highligh-card-slider/highligh-card-slider.component';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './shared/footer/footer.component';
 import { GalleryComponent } from './main/gallery/gallery.component';
 import { BlogsComponent } from './main/blogs/blogs.component';
 import { DonateComponent } from './main/donate/donate.component';
