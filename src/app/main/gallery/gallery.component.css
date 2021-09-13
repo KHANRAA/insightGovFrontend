@@ -1,95 +1,184 @@
-/*
+/*!**/
 
-All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 77).
+/*All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 77).*/
 
-The 'supports' rule will only run if your browser supports CSS grid.
+/*The 'supports' rule will only run if your browser supports CSS grid.*/
 
-Flexbox is used as a fallback so that browsers which don't support grid will still recieve an identical layout.
+/*Flexbox is used as a fallback so that browsers which don't support grid will still recieve an identical layout.*/
 
-*/
+/**!*/
 
-@import url(https://fonts.googleapis.com/css?family=Montserrat:500);
+/*@import url(https://fonts.googleapis.com/css?family=Montserrat:500);*/
 
-:root {
-  /* Base font size */
-  font-size: 10px;
+/*:root {*/
+/*  !* Base font size *!*/
+/*  font-size: 10px;*/
+/*}*/
+
+/**,*/
+/**::before,*/
+/**::after {*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+/*body {*/
+/*  min-height: 100vh;*/
+/*}*/
+
+/*.container {*/
+/*  max-width: 90rem;*/
+/*  margin: 0 auto;*/
+/*  padding: 0 2rem 2rem;*/
+/*}*/
+
+/*.heading {*/
+/*  font-family: "Montserrat", Arial, sans-serif;*/
+/*  font-size: 3rem;*/
+/*  font-weight: 300;*/
+/*  line-height: 1.5;*/
+/*  text-align: center;*/
+/*  padding: 3.5rem 0;*/
+/*  color: #1a1a1a;*/
+/*}*/
+
+/*.heading span {*/
+/*  display: block;*/
+/*}*/
+
+/*.gallery {*/
+/*  display: flex;*/
+/*  flex-wrap: wrap;*/
+/*  !* Compensate for excess margin on outer gallery flex items *!*/
+/*  margin: -1rem -1rem;*/
+/*}*/
+
+/*.gallery-item {*/
+/*  !* Minimum width of 24rem and grow to fit available space *!*/
+/*  flex: 1 0 24rem;*/
+/*  !* Margin value should be half of grid-gap value as margins on flex items don't collapse *!*/
+/*  margin: 1rem;*/
+/*  box-shadow: 0.3rem 0.4rem 0.4rem rgba(0, 0, 0, 0.4);*/
+/*  overflow: hidden;*/
+/*  height: 500px;*/
+/*  width: 500px;*/
+/*}*/
+
+/*.gallery-image {*/
+/*  display: block;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  object-fit: cover;*/
+/*  transition: transform 400ms ease-out;*/
+/*}*/
+
+/*.gallery-image:hover {*/
+/*  transform: scale(1.15);*/
+/*}*/
+
+/*!**/
+
+/*The following rule will only run if your browser supports CSS grid.*/
+
+/*Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling.*/
+
+/**!*/
+
+/*@supports (display: grid) {*/
+/*  .gallery {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));*/
+/*    grid-gap: 2rem;*/
+/*  }*/
+
+/*  .gallery,*/
+/*  .gallery-item {*/
+/*    margin: 0;*/
+/*  }*/
+/*}*/
+
+.mt-7rem {
+  margin-top: 7rem !important;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
 
-body {
-  min-height: 100vh;
-}
-
-.container {
-  max-width: 90rem;
-  margin: 0 auto;
-  padding: 0 2rem 2rem;
-}
-
-.heading {
-  font-family: "Montserrat", Arial, sans-serif;
-  font-size: 3rem;
-  font-weight: 300;
-  line-height: 1.5;
+h1 {
+  font-family: Satisfy;
+  font-size: 50px;
   text-align: center;
-  padding: 3.5rem 0;
-  color: #1a1a1a;
+  color: black;
+  padding: 1%;
 }
 
-.heading span {
-  display: block;
+#gallery {
+  -webkit-column-count: 4;
+  -moz-column-count: 4;
+  column-count: 4;
+
+  -webkit-column-gap: 20px;
+  -moz-column-gap: 20px;
+  column-gap: 20px;
 }
 
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  /* Compensate for excess margin on outer gallery flex items */
-  margin: -1rem -1rem;
+@media (max-width: 1200px) {
+  #gallery {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+
+    -webkit-column-gap: 20px;
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+  }
 }
 
-.gallery-item {
-  /* Minimum width of 24rem and grow to fit available space */
-  flex: 1 0 24rem;
-  /* Margin value should be half of grid-gap value as margins on flex items don't collapse */
-  margin: 1rem;
-  box-shadow: 0.3rem 0.4rem 0.4rem rgba(0, 0, 0, 0.4);
-  overflow: hidden;
+@media (max-width: 800px) {
+  #gallery {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+
+    -webkit-column-gap: 20px;
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+  }
 }
 
-.gallery-image {
-  display: block;
+@media (max-width: 600px) {
+  #gallery {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+  }
+}
+
+#gallery img, #gallery video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 400ms ease-out;
+  height: auto;
+  margin: 4% auto;
+  box-shadow: -3px 5px 15px #000;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
 
-.gallery-image:hover {
-  transform: scale(1.15);
+.modal-img, .model-vid {
+  width: 100%;
+  height: auto;
 }
 
-/*
+.modal-body {
+  padding: 0px;
+}
 
-The following rule will only run if your browser supports CSS grid.
 
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling.
+.bdrop {
+  background-color: #bbbbbbf2;
+  backdrop-filter: blur(4px);
+}
 
-*/
 
-@supports (display: grid) {
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
-    grid-gap: 2rem;
-  }
+.icon-display {
 
-  .gallery,
-  .gallery-item {
-    margin: 0;
-  }
+
+  transform: scale(1.4);
 }

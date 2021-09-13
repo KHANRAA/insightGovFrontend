@@ -16,24 +16,27 @@ import { AdminGuard } from '../main/auth/admin.guard';
 import { AuthenticateGuard } from '../main/auth/authenticate.guard';
 import { CreateCampaignComponent } from '../main/admin/create-campaign/create-campaign.component';
 import { UserManagementComponent } from '../main/admin/user-management/user-management.component';
+import { OtpVerificationComponent } from '../main/auth/otp-verification/otp-verification.component';
 
 export const appRoutes: Routes = [
-  { path: '', component: MainComponent },
-  { path: 'home', component: MainComponent },
-  {
-    path: 'blogs', component: BlogsComponent
-  },
-  { path: 'blogs/:id', component: BlogViewComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'donate', component: ContactComponent, canActivate: [AuthGuard] },
-  { path: 'gallery', component: GalleryComponent },
-  { path: 'auth', component: AuthComponent, canActivate: [AuthenticateGuard] },
-  { path: 'campaign', component: CampaignComponent },
-  { path: 'create/blog', component: CreateBlogComponent, canActivate: [AdminGuard] },
-  { path: 'upload/gallery', component: GalleryUploadComponent, canActivate: [AdminGuard] },
-  { path: 'requests/contact', component: UnderConstructionComponent, canActivate: [AdminGuard] },
-  { path: 'view/users', component: UserManagementComponent, canActivate: [AdminGuard] },
-  { path: 'create/campaign', component: CreateCampaignComponent, canActivate: [AdminGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'error', component: ErrorComponent },
-];
+    { path: '', component: MainComponent },
+    { path: 'home', component: MainComponent },
+    {
+      path: 'blogs', component: BlogsComponent
+    },
+    { path: 'blogs/:id', component: BlogViewComponent },
+    { path: 'contact', component: ContactComponent },
+    { path: 'donate', component: ContactComponent, canActivate: [AuthGuard] },
+    { path: 'gallery', component: GalleryComponent },
+    { path: 'auth', component: AuthComponent, canActivate: [AuthenticateGuard] },
+    { path: 'campaign', component: CampaignComponent },
+    { path: 'create/blog', component: CreateBlogComponent, canActivate: [AdminGuard] },
+    { path: 'upload/gallery', component: GalleryUploadComponent, canActivate: [AdminGuard] },
+    { path: 'requests/contact', component: UnderConstructionComponent, canActivate: [AdminGuard] },
+    { path: 'view/users', component: UserManagementComponent, canActivate: [AdminGuard] },
+    { path: 'create/campaign', component: CreateCampaignComponent, canActivate: [AdminGuard] },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'error', component: ErrorComponent },
+    { path: 'verifyotp', component: OtpVerificationComponent },
+  ]
+;

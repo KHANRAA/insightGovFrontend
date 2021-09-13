@@ -1,15 +1,43 @@
 <div class="container mb-5" style="margin-top: 7rem !important;">
 
-  <div>
-    <file-pond #myPond
-               [options]="pondOptions"
-               [files]="pondFiles"
-               (oninit)="pondHandleInit()"
-               data-max-files="5"
-               (onaddfile)="pondHandleAddFile($event)">
-    </file-pond>
-  </div>
-  <div class="col-md-12 text-center">
-    <button class="btn btn-primary"><i class="fa fa-upload mr-2" aria-hidden="true"></i>Submit....</button>
+  <div class="row">
+    <div class="col-md-12">
+      <file-pond #myPond
+                 [options]="pondOptions"
+                 [files]="pondFiles"
+                 (oninit)="pondHandleInit()"
+                 data-max-files="5"
+                 (onaddfile)="pondHandleAddFile($event)">
+      </file-pond>
+    </div>
+    <div class="col-md-12 m-3 text-center " style="display: grid">
+      <mat-form-field class="example-chip-list">
+        <mat-label>Add Tags</mat-label>
+        <mat-chip-list #chipList aria-label="Tag selection">
+          <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                    [removable]="removable" (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Pleas enter atleast two tags..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 text-center">
+      <button mat-flat-button color="accent" [disabled]="uploadIds.length <1 || tags.length <2"
+              (click)="finalUploadImages()">
+        <mat-icon>upload</mat-icon>
+        Submit
+
+      </button>
+
+      <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+
+      </button>
+    </div>
   </div>
 </div>

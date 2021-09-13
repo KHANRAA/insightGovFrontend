@@ -1,15 +1,21 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastServiceService } from '../../services/toast/toast-service.service';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from './auth.actions';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { data } from 'jquery';
 
 declare const FB: any;
 declare const gapi: any;
 
+export interface DialogData {
+  animal: 'panda' | 'unicorn' | 'lion';
+}
 
 @Component({
   selector: 'app-auth',
@@ -19,7 +25,12 @@ declare const gapi: any;
 export class AuthComponent implements OnInit {
   isLoading = false;
   error: string = null;
-
+  message: string = null;
+  showPasswordInput = false;
+  showOtpInput = false;
+  showSignUpForm = false;
+  showSignInForm = false;
+  email = '';
   private clientId = '333391506365-4o6pf758o1qk9lmie299n0iiovvoescp.apps.googleusercontent.com';
 
   private scope = [
@@ -53,14 +64,34 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  constructor(private toast: ToastServiceService, private authService: AuthService, private router: Router, private store: Store<fromApp.AppState>) { }
+  constructor(private toast: ToastServiceService, private authService: AuthService, private router: Router, private store: Store<fromApp.AppState>, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.store.select('auth').subscribe(authState => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
+      this.message = authState.message;
       if (this.error) {
         this.showError(this.error);
+      }
+      if (this.message) {
+        this.showMessage(this.message);
+      }
+      this.showOtpInput = authState.showOtpInput;
+      this.showPasswordInput = authState.showSignInForm;
+      this.email = authState.email;
+      if (authState.showSignInForm) {
+        this.signInClicked();
+      }
+      if (authState.showSignUpForm) {
+        this.signUpClicked();
+      }
+      if (authState.showOtpInput) {
+        console.warn('here...');
+        this.dialog.open(OtpVerificationComponent, {
+          disableClose: true,
+          data: { email: authState.email, tempToken: authState.tempToken}
+        });
       }
     });
     (window as any).fbAsyncInit = () => {
@@ -128,16 +159,16 @@ export class AuthComponent implements OnInit {
     form.reset();
   }
 
-  signInByOtp(form: NgForm) {
-    if (!form.valid) {
-      return this.toast.toastError({ body: 'Mobile Number is not valid', title: 'Unknown Mobile Number' });
-    }
-    const mobileNumber: string = form.value.number.toString();
-    if (mobileNumber.length < 10 || mobileNumber.length > 15) {
-      return this.toast.toastError({ body: 'Mobile Number is not valid.', title: 'please recheck' });
-    }
-    this.store.dispatch(new AuthActions.SendOtp({ mobileNumber }));
-  }
+  // signInByOtp(form: NgForm) {
+  //   if (!form.valid) {
+  //     return this.toast.toastError({ body: 'Mobile Number is not valid', title: 'Unknown Mobile Number' });
+  //   }
+  //   const mobileNumber: string = form.value.number.toString();
+  //   if (mobileNumber.length < 10 || mobileNumber.length > 15) {
+  //     return this.toast.toastError({ body: 'Mobile Number is not valid.', title: 'please recheck' });
+  //   }
+  //   this.store.dispatch(new AuthActions.SendOtp({ mobileNumber }));
+  // }
 
   signUpByPassword(form: NgForm) {
     if (!form.valid) {
@@ -158,9 +189,26 @@ export class AuthComponent implements OnInit {
     form.reset();
   }
 
+  checkEmail(emailValue) {
+    // console.log(emailValue);
+    let callEmailCheckApi = false;
+    this.showPasswordInput = false;
+    const EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    (emailValue !== '' && !EMAIL_REGEXP.test(emailValue)) ? callEmailCheckApi = false : callEmailCheckApi = true;
+    if (callEmailCheckApi && emailValue.length) {
+      console.log('Calling email API...');
+      this.store.dispatch(new AuthActions.CheckEmail({ email: emailValue }));
+    }
+  }
+
 
   showError(error) {
     this.toast.toastError({ body: error.body, title: error.title });
+    this.store.dispatch(new AuthActions.ClearError());
+  }
+
+  showMessage(message) {
+    this.toast.toastInfo({ body: message.body, title: message.title });
     this.store.dispatch(new AuthActions.ClearError());
   }
 
@@ -168,8 +216,13 @@ export class AuthComponent implements OnInit {
     document.getElementById('container').classList.add('right-panel-active');
   }
 
+  openDialog() {
+    this.dialog.open(OtpVerificationComponent, { disableClose: true, backdropClass: 'bdrop' });
+  }
+
   signInClicked() {
     document.getElementById('container').classList.remove('right-panel-active');
   }
 
 }
+

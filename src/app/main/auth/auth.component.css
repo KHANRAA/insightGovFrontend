@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 * {
   box-sizing: border-box;
@@ -216,5 +217,18 @@ input {
   margin: 0 5px;
   height: 40px;
   width: 40px;
+}
+
+
+.bdrop {
+  background-color: #bbbbbbf2;
+  backdrop-filter: blur(4px);
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
 }
 

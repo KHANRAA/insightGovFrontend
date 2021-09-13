@@ -7,6 +7,10 @@ import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from './auth.model';
 import { AuthService } from './auth.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
+import { ToastServiceService } from '../../services/toast/toast-service.service';
+import { SubmitOtp } from './auth.actions';
 
 
 interface AuthResponseData {
@@ -18,7 +22,27 @@ interface AuthResponseData {
   avatarImageUrl: string;
   dewsToken?: string;
   expiresIn?: string;
+}
 
+interface OtpSubmitResponseData {
+  status: number;
+  data: { type: string, message: string };
+}
+
+interface CheckEmailDataStructure {
+  status: number;
+  userExists: boolean;
+  message: string;
+}
+
+interface CheckEmailResponseData {
+  status: number;
+  data: CheckEmailDataStructure;
+}
+
+interface ErrorResponseStruct {
+  status: number;
+  data: { message: string, type: string, tempToken: string };
 }
 
 @Injectable()
@@ -36,28 +60,35 @@ export class AuthEffects {
           email: resData.data.email,
         });
       }), catchError(errResponse => {
-        if (!errResponse.error || !errResponse.error.data) {
-          return of(new AuthActions.LoginFail({ body: 'Unknown Error Occured', title: 'Unknown Error' }));
-        }
-        return of(new AuthActions.LoginFail({ body: errResponse.error.data, title: 'Sign Up Error' }));
+        return of(new AuthActions.LoginFail({ body: errResponse.error.message, title: 'Sign Up Error' }));
       }));
     }));
 
 
   @Effect()
-  authSendOtp = this.actions$.pipe(ofType(AuthActions.SEND_OTP),
-    switchMap((sendOtpAction: AuthActions.SendOtp) => {
-      return this.http.post<AuthResponseData>('http://localhost:3000/api/auth/register/otp', {
-        mobileNumber: sendOtpAction.payload.mobileNumber,
+  authSubmitOtp = this.actions$.pipe(ofType(AuthActions.SUBMIT_OTP),
+    switchMap((otpData: AuthActions.SubmitOtp) => {
+      return this.http.post<OtpSubmitResponseData>('http://localhost:3000/api/auth/validateOtp', {
+        email: otpData.payload.email,
+        tempToken: otpData.payload.tempToken,
+        otp: otpData.payload.otp,
       }).pipe(map(resData => {
-        return new AuthActions.OtpSend({
-          status: resData.data.status,
-        });
+        console.log('called here ... success');
+        this.store.dispatch(new AuthActions.AuthMessages({ body: resData.data.message, title: 'OTP Verified' }));
+        console.log('called here ...after success');
+        return new AuthActions.ShowSignInForm({ email: otpData.payload.email });
       }), catchError(errResponse => {
-        if (!errResponse.error || !errResponse.error.data) {
-          return of(new AuthActions.LoginFail({ body: 'Unknown Error Occured', title: 'Unknown Error' }));
+        const errorData: ErrorResponseStruct = errResponse.error;
+        switch (errorData.data.type) {
+          case 'wrong':
+            return of(new AuthActions.AuthMessages({ body: errorData.data.message, title: 'Wrong OTP' }));
+          case 'expired':
+            return of(new AuthActions.LoginFail({ body: errorData.data.message, title: 'OTP Expired' }));
+          case 'notFound':
+            return of(new AuthActions.LoginFail({ body: errorData.data.message, title: 'OTP Expired' }));
+          default:
+            return of(new AuthActions.LoginFail({ body: errorData.data.message, title: 'Error' }));
         }
-        return of(new AuthActions.LoginFail({ body: errResponse.error.data, title: 'Sign Up Error' }));
       }));
     }));
 
@@ -83,21 +114,68 @@ export class AuthEffects {
           dewsToken: resData.data.dewsToken,
           expirationDate
         });
-      }), catchError(errResponse => {
-        if (!errResponse.error || !errResponse.error.data) {
-          return of(new AuthActions.LoginFail({ body: 'Unknown Error Occured', title: 'Unknown Error' }));
+      }), catchError((errResponse) => {
+        const errorData: ErrorResponseStruct = errResponse.error;
+        console.log(errorData);
+        switch (errorData.data.type) {
+          case 'signup':
+            this.store.dispatch(new AuthActions.AuthMessages({ body: errorData.data.message, title: 'New User' }));
+            return of(new AuthActions.ShowSignUpForm({ email: authData.payload.email }));
+          case 'spam':
+            this.store.dispatch(new AuthActions.LoginFail({ body: errorData.data.message, title: 'Spam' }));
+            return of(new AuthActions.ShowSignInForm({ email: authData.payload.email }));
+          case 'active':
+            this.store.dispatch(new AuthActions.AuthMessages({ body: errorData.data.message, title: 'Verify Email' }));
+            return of(new AuthActions.ShowOtpInput({ email: authData.payload.email, tempToken: errorData.data.tempToken }));
+
         }
-        return of(new AuthActions.LoginFail({ body: errResponse.error.data, title: 'Log In Error' }));
+        return of(new AuthActions.LoginFail({ body: errorData.data.message, title: 'Log In Error' }));
       }));
     }),
   );
 
+  @Effect()
+  checkEmail = this.actions$.pipe(
+    ofType(AuthActions.CHECK_EMAIL),
+    switchMap((checkData: AuthActions.CheckEmail) => {
+      return this.http.post<CheckEmailResponseData>('http://localhost:3000/api/auth/checkemail', {
+        email: checkData.payload.email
+      }).pipe(map(resData => {
+        const userExists = resData.data.userExists;
+        this.store.dispatch(new AuthActions.AuthMessages({ body: resData.data.message, title: '' }));
+        if (userExists) {
+          return new AuthActions.ShowSignInForm({
+            email: checkData.payload.email
+          });
+        }
+        return new AuthActions.ShowSignUpForm({ email: checkData.payload.email });
+      }), catchError(errResponse => {
+        return of(new AuthActions.ShowSignUpForm({ email: checkData.payload.email }));
+      }));
+    }),
+  );
+
+
+  @Effect()
+  deleteOtp = this.actions$.pipe(
+    ofType(AuthActions.DELETE_OTP),
+    switchMap((deleteData: AuthActions.DeleteOTP) => {
+      return this.http.delete<CheckEmailResponseData>(`http://localhost:3000/api/auth/deleteotp/${deleteData.payload.tempToken}`, {});
+    }),
+  );
+
+
   @Effect({ dispatch: false })
-  redirectHome = this.actions$.pipe(ofType(AuthActions.LOGIN, AuthActions.SIGNUP), tap(() => {
+  redirectProfile = this.actions$.pipe(ofType(AuthActions.LOGIN), tap(() => {
     // to-do change later
-    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/profile']);
   }));
 
+  // @Effect({ dispatch: false })
+  // redirectHome = this.actions$.pipe(ofType(AuthActions.LOGIN_REDIRECT), tap(() => {
+  //   // to-do change later
+  //   this.router.navigate(['/auth']);
+  // }));
 
   @Effect()
   autoLogin = this.actions$.pipe(ofType(AuthActions.AUTO_LOGIN), map(() => {
@@ -146,6 +224,7 @@ export class AuthEffects {
   }));
 
 
-  constructor(private actions$: Actions, private http: HttpClient, private router: Router, private authService: AuthService) {
+  constructor(private actions$: Actions, private http: HttpClient, private router: Router,
+              private authService: AuthService, private store: Store<fromApp.AppState>, private toast: ToastServiceService) {
   }
 }

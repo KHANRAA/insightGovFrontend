@@ -80,6 +80,10 @@ export class AuthService {
     }, expirationDuration);
   }
 
+  changeStateBasedOnEmailExists(type: string){
+
+  }
+
   // logout() {
   //   this.store.dispatch(new AuthActions.Logout());
   //   // this.user.next(null);

@@ -5,17 +5,19 @@
       <div class="container" id="container">
         <div class="form-container sign-up-container">
           <form #signUpForm="ngForm" (ngSubmit)="signUpByPassword(signUpForm)">
-            <h1>Create Account</h1>
+            <h1>Create an Account</h1>
             <div class="social-container" style="display: none !important;">
               <a class="social" (click)="facebookLogin();"><i class="fab fa-facebook-f"></i></a>
               <a class="social" id="google2" #google2 (click)="googleLogin(google2)"><i
                 class="fab fa-google-plus-g"></i></a>
             </div>
-            <span>or use your email for registration</span>
+            <span> use your email for registration</span>
             <input type="text" id="name" placeholder="Name" ngModel name="name" required class="form-control"/>
-            <input type="email" id="email2" placeholder="Email" ngModel name="email" required email
+            <input type="email" placeholder="Email" [ngModel]="email" (ngModelChange)="checkEmail($event)" name="email"
+                   required email
                    class="form-control"/>
-            <input type="password" id="password2" placeholder="Password" ngModel required name="password"
+            <input type="password" id="password2" placeholder="Password"
+                   pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" ngModel required name="password"
                    class="form-control" minlength="6" maxlength="30"/>
             <button type="submit" [disabled]="!signUpForm.valid">Sign Up</button>
           </form>
@@ -28,30 +30,33 @@
               <a class="social" id="google1" #google1 (click)="googleLogin(google1)"><i
                 class="fab fa-google-plus-g"></i></a>
             </div>
-            <span>or use your account</span>
-            <input class="form-control" type="email" id="email1" placeholder="Email" ngModel name="email" required
+            <span>Start typing your email to SignIn/SignUp</span>
+            <input class="form-control" type="email" (ngModelChange)="checkEmail($event)" placeholder="Email"
+                   [ngModel]="email" name="email" required
                    email/>
-<!--            <input class="form-control" type="number" id="number" placeholder="Mobile Number" [minlength]="8"-->
-<!--                   [maxlength]="15" ngModel name="number" required/>-->
+            <!--            <input class="form-control" type="number" id="number" placeholder="Mobile Number" [minlength]="8"-->
+            <!--                   [maxlength]="15" ngModel name="number" required/>-->
 
-                        <input class="form-control" type="password" id="password1" ngModel required name="password"
-                               placeholder="Password" minlength="6" maxlength="40"/>
+            <input class="form-control" type="password" id="password1" [hidden]="!showPasswordInput"
+                   pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" ngModel required name="password"
+                   placeholder="Password" minlength="6" maxlength="40"/>
             <a href="#">Forget your password?</a>
             <button type="submit" [disabled]="!signInForm.valid">Sign In</button>
+            <!--            <button mat-button (click)="openDialog()">Open dialog</button>-->
           </form>
           <div class="alert alert-info" style="display: none;"></div>
         </div>
         <div class="overlay-container">
           <div class="overlay">
             <div class="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
-              <p>To keep connected with us please login with your personal info</p>
-              <button class="ghost" id="signIn" (click)="signInClicked()">Log In</button>
+              <h1>Hola!</h1>
+              <p>“The secret of getting ahead is getting started.” – Mark Twain</p>
+<!--              <button class="ghost" id="signIn" (click)="signInClicked()">Log In</button>-->
             </div>
             <div class="overlay-panel overlay-right">
-              <h1>Hello, Visitor!</h1>
-              <p>Enter your personal details to be a part of dews family</p>
-              <button class="ghost" id="signUp" (click)="signUpClicked()">Sign Up</button>
+              <h1>Welcome to DEWS</h1>
+              <p>You're one step away from being part if this awsome falily ....</p>
+<!--              <button class="ghost" id="signUp" (click)="signUpClicked()">Sign Up</button>-->
             </div>
           </div>
         </div>

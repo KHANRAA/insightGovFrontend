@@ -1,0 +1,50 @@
+<!-- OTP Page -->
+
+<div class="container ">
+
+  <div class="row m0p0">
+    <div id="main" class="test1 m0p0">
+      <div class="row m0p0">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m0p0">
+          <div class="test loginbox ">
+            <div class="row m0p0">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m0p0 m-b-15">
+                <button class="close" mat-button (click)="onNoClick()">X</button>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m0p0">
+                <div class="instruction" style="">
+                  <h5>One-Time-Password(OTP)</h5>
+                </div>
+              </div>
+
+              <form #otpVerificationForm="ngForm" class="min-width-all" (ngSubmit)="submitOtp(otpVerificationForm)">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m0p0">
+                  <input type="password" name="otp" [ngModel]="otp" [minlength]="6" [maxlength]="6"
+                         placeholder="Enter secret OTP" required/>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m0p0">
+                  <!--                <input type="submit" name="submit" value="Submit Otp" [disabled]="otpVerificationForm.invalid"/>-->
+                  <button type="submit" name="submit" class="submit-button" mat-button color="accent"
+                          [disabled]="!otpVerificationForm.valid">Submit OTP
+                  </button>
+                </div>
+              </form>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m0p0">
+                <div class="instruction" style="">Otp is valid only for 5 minutes ... Send to email : {{ email }}</div>
+
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m0p0">
+                <div id="countdown"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+

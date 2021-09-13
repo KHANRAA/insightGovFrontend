@@ -40,6 +40,7 @@ import { DEFAULT_SWIPER_CONFIG } from './store/swiper.config';
 import { AuthInterceptorService } from './services/auth.interceptor.service';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './main/auth/auth.effects';
+import { GalleryEffects } from './main/gallery/gallery.effects';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatChipsModule } from '@angular/material/chips';
@@ -59,6 +60,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { OtpVerificationModule } from './main/auth/otp-verification/otp-verification.module';
+import { ImageZoomerComponent } from './main/gallery/image-zoomer/image-zoomer.component';
+import { MatBadgeModule } from '@angular/material/badge';
+
 
 filePondPlugins();
 
@@ -88,12 +93,13 @@ filePondPlugins();
     CreateCampaignComponent,
     UnderConstructionComponent,
     BlogViewComponent,
+    ImageZoomerComponent,
   ],
   imports: [
     BrowserModule,
     StoreModule.forRoot(fromApp.appReducer),
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, GalleryEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     HttpClientModule,
     QuillModule.forRoot({
@@ -122,7 +128,9 @@ filePondPlugins();
     MatCardModule,
     MatRadioModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    OtpVerificationModule,
+    MatBadgeModule
   ],
   providers: [
     {

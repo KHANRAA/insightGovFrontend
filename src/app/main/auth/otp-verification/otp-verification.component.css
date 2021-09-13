@@ -1,0 +1,208 @@
+.test {
+  border: 1px solid #eee;
+}
+
+#main {
+}
+
+.loginbox {
+
+  max-width: 300px;
+  min-height: 347px;
+  height: auto;
+  margin: 0px auto;
+  background: #22222a;
+  border-radius: 6px;
+  margin-top: -5%;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+input[type=text], input[type=password], input[type=submit] {
+  margin: 0 auto;
+  width: 80%;
+  display: block;
+  height: 46px;
+  border: none;
+
+}
+
+input[type=text] {
+  border-bottom: 1px solid #cccccc;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  padding-left: 15px;
+}
+
+input[type=password] {
+  margin-bottom: 10px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding-left: 15px;
+}
+
+input[type=submit] {
+  background-color: #ff009a;
+  border-radius: 3px;
+  color: white;
+}
+
+.min-width-all {
+  min-width: -webkit-fill-available;
+}
+
+
+.bdrop {
+  background-color: rgba(84, 84, 84, 0.95);
+  backdrop-filter: blur(4px);
+}
+.submit-button {
+  background-color: #ff009a;
+  border-radius: 3px;
+  color: white;
+  margin: 0 auto;
+  width: 80%;
+  display: block;
+  height: 46px;
+  border: none;
+}
+
+.m0p0 {
+  margin: 0px;
+  padding: 0px;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.logo {
+  width: 96px;
+  height: 96px;
+  background: #bbb;
+  margin: 20px auto 20px auto;
+}
+
+.forgotpw {
+  display: block;
+  text-align: center;
+  color: #666;
+  margin-top: 2%;
+  cursor: pointer;
+}
+
+.errormessage {
+  color: white;
+  display: block;
+  display: none;
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+
+/*
+::-webkit-input-placeholder {  padding-left:3%;}
+::-moz-placeholder { padding-left:3%; }
+:-ms-input-placeholder { padding-left:3%; }
+input:-moz-placeholder { padding-left:3%; }  */
+
+
+.alarm {
+  border: 3px solid #ec81b9 !important;
+  background-color: #f9daea;
+}
+
+.error {
+  background-color: #f9daea;
+}
+
+.instruction {
+  display: block;
+  text-align: center;
+  color: #eee;
+  margin-top: 4%;
+  cursor: pointer;
+  font-size: 12px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: italic;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/robotocondensed/v19/ieVg2ZhZI2eCN5jzbjEETS9weq8-19eDtCYobdNc.ttf) format('truetype');
+}
+
+#countdown {
+  font-family: 'Roboto Condensed', sans-serif;
+  width: 200px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -100px;
+  color: white;
+  font-size: 3em;
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+  -ms-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
+  /* solve for flicker problem */
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+}
+
+#countdown.puffer {
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  -webkit-transform: scale(1.6, 1.6);
+  -moz-transform: scale(1.6, 1.6);
+  -ms-transform: scale(1.6, 1.6);
+  -o-transform: scale(1.6, 1.6);
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -ms-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+}
+
+/* LESS Mixins */
+
+/*.m-t-50 {*/
+/*  margin-top: 50px !important;*/
+/*}*/
+
+
+.cdk-overlay-pane.my-dialog {
+  position: relative !important;
+}
+
+.close.mat-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  line-height: 14px;
+  min-width: auto;
+  color: black;
+  background-color: white;
+}
+
+.m-b-15 {
+  margin-bottom: 15px !important;
+}

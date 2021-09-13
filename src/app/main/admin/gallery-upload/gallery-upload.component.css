@@ -1,10 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-.filepond--credits{
-  display: none !important;
+.filepond--credits {
+  display: none ;
 
 }
-.min-width-centre{
+
+.min-width-centre {
   margin: 0 auto;
 }
 
@@ -13,8 +15,8 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.container{
-  display:  flex;
+.container {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   flex-grow: 4;
@@ -30,6 +32,7 @@ h2 {
   font-family: 'Roboto', sans-serif;
   margin-bottom: 10px !important;
 }
+
 .filepond--drop-label {
   color: #4c4e53;
 }
@@ -51,6 +54,8 @@ h2 {
 .filepond--drip-blob {
   background-color: #7f8a9a;
 }
+
+
 
 
 /* error state color */
