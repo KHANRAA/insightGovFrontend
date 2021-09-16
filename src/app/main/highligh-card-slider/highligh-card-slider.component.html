@@ -4,13 +4,12 @@
       <div class="blog-slider__item swiper-slide" *ngFor="let blog of blogs;">
         <div class="blog-slider__img">
           <img
-            [src]="blog.imageUrl.trim()" alt="">
+            [src]="blog.images[0].imageUrl" alt="">
         </div>
         <div class="blog-slider__content">
           <span class="blog-slider__code">{{ blog.createdAt }}</span>
           <div class="blog-slider__title">{{ blog.title }}</div>
-          <div class="blog-slider__text" [innerHTML]="bypassHtML(blog.content)">
-          </div>
+          <div class="blog-slider__text">{{ blog.subtitle }}</div>
           <a [routerLink]="'/blogs/'+blog.blogId" class="blog-slider__button">READ MORE</a>
         </div>
       </div>

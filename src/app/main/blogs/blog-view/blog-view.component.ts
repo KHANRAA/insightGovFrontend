@@ -8,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import * as AuthActions from '../../auth/auth.actions';
 import { ToastServiceService } from '../../../services/toast/toast-service.service';
+import { User } from '../../auth/auth.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-blog-view',
@@ -16,6 +18,8 @@ import { ToastServiceService } from '../../../services/toast/toast-service.servi
 })
 export class BlogViewComponent implements OnInit {
   id: string;
+  user: User;
+  private userSub: Subscription;
   blog: Blog;
   showCommentBox: boolean;
 
@@ -27,11 +31,14 @@ export class BlogViewComponent implements OnInit {
       this.blogService.getBlog(this.id).subscribe(() => {
         this.store.select('blogs').pipe(map(blogData => blogData.blog)).subscribe((blog: Blog) => {
           this.blog = blog;
-          console.log(this.blog);
         });
       });
     });
-    this.showCommentBox = true;
+    this.userSub = this.store.select('auth').pipe(map(authState => authState.user)).subscribe(user => {
+      if (!!user) {
+        this.user = user;
+      }
+    });
   }
 
   postComment(form: NgForm) {
@@ -48,7 +55,8 @@ export class BlogViewComponent implements OnInit {
     form.reset();
     this.showCommentBox = true;
   }
-  deleteComment(commentId){
+
+  deleteComment(commentId) {
     this.blogService.deleteComment(this.id, commentId).subscribe();
   }
 

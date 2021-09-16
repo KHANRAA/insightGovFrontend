@@ -63,6 +63,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { OtpVerificationModule } from './main/auth/otp-verification/otp-verification.module';
 import { ImageZoomerComponent } from './main/gallery/image-zoomer/image-zoomer.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { CampaignEffects } from './main/campaign/campaign-effects';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 filePondPlugins();
@@ -99,7 +101,7 @@ filePondPlugins();
     BrowserModule,
     StoreModule.forRoot(fromApp.appReducer),
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
-    EffectsModule.forRoot([AuthEffects, GalleryEffects]),
+    EffectsModule.forRoot([AuthEffects, GalleryEffects, CampaignEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     HttpClientModule,
     QuillModule.forRoot({
@@ -130,7 +132,8 @@ filePondPlugins();
     MatProgressSpinnerModule,
     MatPaginatorModule,
     OtpVerificationModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatGridListModule
   ],
   providers: [
     {

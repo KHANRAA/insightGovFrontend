@@ -10,6 +10,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import * as AuthActions from '../../auth/auth.actions';
 import { GalleryService } from '../gallery-upload/gallery.service';
+import * as url from 'url';
 
 
 @Component({
@@ -42,11 +43,10 @@ export class GalleryUploadComponent implements OnInit {
           'x-dews-token': this.getUserToken(),
         },
         onerror: (error) => this.toast.toastError({ body: error.data, title: 'Upload Error...' }),
-        withCredentials: false,
+        withCredentials: true,
         onload: (data) => {
-          data = JSON.parse(data);
-          console.warn(data);
-          this.uploadIds.push(data.id);
+          this.uploadIds.push(data);
+          return data;
         },
       },
       revert: {
@@ -55,14 +55,14 @@ export class GalleryUploadComponent implements OnInit {
         method: 'DELETE',
         headers: {
           'x-dews-token': this.getUserToken(),
-          'Content-type': 'application/json'
         },
+        withCredentials: true,
+        onerror: (error) => this.toast.toastError({ body: error.data, title: 'Upload Error...' }),
         onload: (data) => {
           this.uploadIds = this.uploadIds.filter((item) => {
             return item !== data.id;
           });
         },
-        withCredentials: false,
       },
     },
     allowFileSizeValidation: true,

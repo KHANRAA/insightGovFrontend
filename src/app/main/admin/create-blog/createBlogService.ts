@@ -19,14 +19,15 @@ export class CreateBlogService {
     } else {
       return throwError(errResponse.error);
     }
-  };
+  }
 
-  addBlog(blogData: any, tags: Array<string>, coverRef: string) {
+  addBlog(blogData: any, tags: Array<string>, coverRef: string[]) {
     return this.http.post<CreateBlogServiceResponseData>('http://localhost:3000/api/blog/add', {
       title: blogData.title,
+      subtitle: blogData.subtitle,
       content: blogData.content,
       isHighlight: (!(blogData.isHighlight === '' || blogData.isHighlight === false)),
-      imageUrl: coverRef,
+      imageIds: coverRef,
       tags,
     }).pipe(catchError(this.handleError));
   }

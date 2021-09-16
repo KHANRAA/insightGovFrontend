@@ -1,7 +1,8 @@
-<div class="container-fl mb-5" style="margin-top: 7rem !important;">
+<div class="container-fluid mb-5" style="margin-top: 7rem !important;">
+
   <div class="blog-card" *ngFor="let blog of blogs; let i = index" [class.alt]="i%2!==0">
     <div class="meta">
-      <div class="photo" [ngStyle]="{'background-image': 'url('+ blog.imageUrl  + ')'}"></div>
+      <div class="photo" [ngStyle]="{'background-image': 'url('+ blog.images[0].imageUrl  + ')'}"></div>
       <ul class="details">
         <li class="author"><a href="#">{{ blog.author[0].name}}</a></li>
         <li class="date">{{ blog.createdAt }}</li>
@@ -16,7 +17,7 @@
     </div>
     <div class="description">
       <h1>{{ blog.title }}</h1>
-      <p [innerHTML]="bypassHtML(blog.content)"></p>
+      <p>{{ blog.subtitle }}</p>
       <p class="read-more text-center">
         <a [routerLink]="[blog.blogId]">Read More</a>
       </p>

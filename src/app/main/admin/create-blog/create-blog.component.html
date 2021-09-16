@@ -4,10 +4,19 @@
     <form #createBlog="ngForm" (ngSubmit)="createBlogForPost(createBlog)">
       <div class="col-md-12 m-3">
         <div class="d-flex flex-wrap align-items-center">
-          <input class="form-control form-control-lg w-75" type="text" name="title" ngModel
+          <input class="form-control form-control-lg w-75" type="text" minlength="5" maxlength="200" name="title"
+                 ngModel
                  placeholder="Enter a nice title..."
                  required/>
           <mat-slide-toggle class="ml-5" ngModel name="isHighlight">Highlight Post</mat-slide-toggle>
+        </div>
+      </div>
+      <div class="col-md-12 m-3">
+        <div class="d-flex flex-wrap align-items-center">
+          <input class="form-control form-control-lg w-75" minlength="10" maxlength="200" type="text" name="subtitle"
+                 ngModel
+                 placeholder="Enter a subtitle..."
+                 required/>
         </div>
       </div>
       <div class="col-md-12 min-width-centre">
@@ -22,7 +31,8 @@
 
       </div>
       <div class="col-md-12">
-        <quill-editor [styles]="editorStyle" (onFocus)="focus($event)" format="json"  (onEditorCreated)="created($event)"
+        <quill-editor [styles]="editorStyle" (onFocus)="focus($event)" format="json" (onEditorCreated)="created($event)"
+                      minLength="20"
                       (onBlur)="blur($event)" [modules]="config"
                       #postContent name="content" ngModel required>
         </quill-editor>
@@ -47,8 +57,10 @@
         </mat-form-field>
       </div>
       <div class="col-md-12 text-center m-3">
-        <button class="btn btn-outline-primary" [disabled]="disableSubmitButton"><i class="fa fa-upload mr-2"
-                                                                                    aria-hidden="true"></i>Post Blog....
+        <button class="btn btn-outline-primary"
+                [disabled]="!createBlog.valid || (!uploadIds || uploadIds.length < 1)  "><i class="fa fa-upload mr-2"
+                                                                                            aria-hidden="true"></i>Post
+          Blog....
         </button>
       </div>
 

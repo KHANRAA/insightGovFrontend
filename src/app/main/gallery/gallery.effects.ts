@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as GalleryActions from './gallery.action';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -14,9 +14,14 @@ import * as AuthActions from '../auth/auth.actions';
 // import { GalleryImage } from './gallery.reducer';
 
 
-interface ImageResultStruct {
+export interface ImageResultStruct {
   status: number;
   data: GalleryImage[];
+}
+
+export interface ImageResultDefaultStruct {
+  status: number;
+  data: { type: string, message: string };
 }
 
 interface ErrorResponseStruct {
@@ -40,13 +45,21 @@ export class GalleryEffects {
       }));
     }),
   );
-  //
-  // @Effect({ dispatch: false })
-  // authLogout = this.actions$.pipe(ofType(AuthActions.LOGOUT), tap(() => {
-  //   localStorage.removeItem('userData');
-  //   this.authService.clearLogoutTimer();
-  //   this.router.navigate(['/home']);
-  // }));
+
+  @Effect()
+  addLike = this.actions$.pipe(
+    ofType(GalleryActions.ADD_LIKE),
+    switchMap((likeData: GalleryActions.AddLike) => {
+      return this.http.post<ImageResultDefaultStruct>('http://localhost:3000/api/gallery/like', {
+        imageId: likeData.payload.imageId
+      }).pipe(map(() => {
+        return new GalleryActions.IncreaseLike({ imageId: likeData.payload.imageId });
+      }), catchError((errResponse) => {
+        const errorData: ErrorResponseStruct = errResponse.error;
+        return of(new GalleryActions.ToastMessage({ type: 'error', body: errorData.data.message, title: 'Image Fetch Error' }));
+      }));
+    }),
+  );
 
 
   constructor(private actions$: Actions, private http: HttpClient, private router: Router, private store: Store<fromApp.AppState>, private toast: ToastServiceService) {

@@ -1,189 +1,29 @@
-<main class="site container">
-
-  <article class="card--open border-warning m-5" style="border: 2px solid red" data-card >
-
-    <header class="card__header"
-            style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/43525/preview-watchme.jpg');">
-      <img class="card__preview" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/43525/preview-ratio.png"
-           alt="Preview Image">
-    </header>
-    <!-- /.card__header -->
-
-    <section class="card__body">
-
-      <h2 class="card__title">WATCHme</h2>
-
-      <h3 class="card__subtitle">Cute Apple Watch charging&nbsp;stand</h3>
-
-      <p>WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.WATCHme is a charging stand that will turn your smartwatch into a cute little monster.WATCHme is a charging stand that will turn your smartwatch into a cute little monster.WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-        WATCHme is a charging stand that will turn your smartwatch into a cute little monster.
-
-
-
+<div class="container" style="margin-top: 7em !important;">
+  <div class="box" *ngFor="let campaign of campaigns; let i = index">
+    <img [src]="campaign.images[0].imageUrl" [alt]="campaign.campaignId">
+    <div class="textSection">
+      <div class="_title">
+        {{ campaign.title }}
+      </div>
+      <p>
+        <quill-view [content]="campaign.content" format="json" theme="snow"></quill-view>
       </p>
-    </section>
-    <!-- /.card__body -->
-
-    <footer class="card__footer">
-
-      <div class="card__progress  progress" data-percent="45">
-
-        <div class="progress__label">21 days left</div>
-
-      </div>
-
-      <div class="card__stats  stats">
-
-        <div class="stats__item stats__actual">
-
-          <div class="stats__title">raised so far</div>
-
-          <div class="stats__amount"><i class="fas fa-rupee-sign"></i>&nbsp;9,520</div>
-
+      <div class="tooltipSection">
+        <div class="_tooltip">70%</div>
+        <div class="progress">
+          <div class="determinate" style="width: 70%">
+          </div>
         </div>
-        <!-- /.stats__item stats__actual -->
-
-        <div class="stats__item stats__goal">
-
-          <div class="stats__title">our goal</div>
-
-          <div class="stats__amount"><i class="fas fa-rupee-sign"></i>20,000</div>
-
+        <div class="progressBottomTxt">
+          <div class="_left">
+            Raised: <span><i class="fas fa-rupee-sign"></i>3200</span>
+          </div>
+          <div class="_right">
+            Goal: <span><i class="fas fa-rupee-sign"></i>{{campaign.goalAmount}}</span>
+          </div>
         </div>
-        <!-- /.stats__item stats__goal -->
-
+        <button class="btnDonate">Donate Now</button>
       </div>
-      <!-- /.card__stats  stats -->
-
-    </footer>
-    <!-- /.card__footer -->
-    <button class="btn btn-outline-danger   w-100">Contribute</button>
-  </article>
-  <!-- /.card -->
-
-  <article  class="card--open border-warning m-5" style="border: 2px solid red" data-card>
-
-    <header class="card__header"
-            style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/43525/preview-botpocalypse.jpg');">
-      <img class="card__preview" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/43525/preview-ratio.png"
-           alt="Preview Image">
-    </header>
-    <!-- /.card__header -->
-
-    <section class="card__body">
-
-      <h2 class="card__title">Botpocalypse</h2>
-
-      <h3 class="card__subtitle">Friend destroying mobile&nbsp;game</h3>
-
-      <p>Botpocalypse is a fast-paced, survival-style arcade game where you compete against friends for the highest
-        score or longest survival time, acquire new characters, and unlock achievements.</p>
-
-    </section>
-    <!-- /.card__body -->
-
-    <footer class="card__footer">
-
-      <div class="card__progress  progress" data-percent="904">
-
-        <div class="progress__label">1 hour left</div>
-
-      </div>
-
-      <div class="card__stats  stats">
-
-        <div class="stats__item stats__actual">
-
-          <div class="stats__title">raised so far</div>
-
-          <div class="stats__amount">$903,524</div>
-
-        </div>
-        <!-- /.stats__item stats__actual -->
-
-        <div class="stats__item stats__goal">
-
-          <div class="stats__title">our goal</div>
-
-          <div class="stats__amount">$100,000</div>
-
-        </div>
-        <!-- /.stats__item stats__goal -->
-
-      </div>
-      <!-- /.card__stats  stats -->
-
-    </footer>
-    <!-- /.card__footer -->
-
-  </article>
-  <!-- /.card -->
-
-  <article class="card--open border-warning m-5" style="border: 2px solid red" data-card>
-
-    <header class="card__header"
-            style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/43525/preview-tron-3.jpg');">
-      <img class="card__preview" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/43525/preview-ratio.png"
-           alt="Preview Image">
-    </header>
-    <!-- /.card__header -->
-
-    <section class="card__body">
-
-      <h2 class="card__title">Tron 3</h2>
-
-      <h3 class="card__subtitle">The legend of&nbsp;Quorra</h3>
-
-      <p>Sam Flynn and Quorra return to the real world. Who could have prepared for what she was capable of? Flynn must
-        hunt and stop Quorra at all costs.</p>
-
-    </section>
-    <!-- /.card__body -->
-
-    <footer class="card__footer">
-
-      <div class="card__progress  progress" data-percent="30">
-
-        <div class="progress__label">1 month left</div>
-
-      </div>
-
-      <div class="card__stats  stats">
-
-        <div class="stats__item stats__actual">
-
-          <div class="stats__title">raised so far</div>
-
-          <div class="stats__amount">$150,872</div>
-
-        </div>
-        <!-- /.stats__item stats__actual -->
-
-        <div class="stats__item stats__goal">
-
-          <div class="stats__title">our goal</div>
-
-          <div class="stats__amount">$500,000</div>
-
-        </div>
-        <!-- /.stats__item stats__goal -->
-
-      </div>
-      <!-- /.card__stats  stats -->
-
-    </footer>
-    <!-- /.card__footer -->
-
-  </article>
-  <!-- /.card -->
-
-</main>
-<!-- /.site -->
+    </div>
+  </div>
+</div>

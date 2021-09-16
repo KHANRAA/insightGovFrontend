@@ -1,26 +1,23 @@
-<div class="container-fluid" style="margin-top: 7em !important;">
-  <h1 >Create a Campaign</h1>
+<div class="container-fluid" style="margin-top: 7rem !important; margin-bottom: 5px">
+  <h1>Create a Campaign</h1>
   <div class="row">
     <div class="col-md-12">
-
-      <div class="text-center">
-        <mat-radio-group name="opList" fxLayout="column" [(ngModel)]="selectedDonation">
-          <mat-radio-button *ngFor="let op of availableDonationTypes" [value]="op.name"
-                            name="opList">{{ op.name}}</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <div class="text-center">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Choose a date</mat-label>
-          <input matInput [matDatepicker]="picker">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker touchUi #picker></mat-datepicker>
-        </mat-form-field>
-
-      </div>
       <form #createCampaign="ngForm" (ngSubmit)="createNewCampaign(createCampaign)">
+        <div class="text-center">
+          <mat-radio-group name="campaignType" fxLayout="column" [(ngModel)]="selectedDonation">
+            <mat-radio-button *ngFor="let op of availableDonationTypes" [value]="op.name"
+                              name="campaignType">{{ op.name}}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="text-center">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" ngModel name="campaignDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
 
-
+        </div>
 
 
         <div class="col-md-6 min-width-centre">
@@ -37,23 +34,17 @@
 
         <div class="row m-l-15 ">
           <div class="col-md-10 min-width-centre">
-            <input type="text" name="title" id="title" ngModel required/>
+            <input type="text" name="title" minlength="5" maxlength="200" id="title" ngModel required/>
             <label for="title">Title</label>
-          </div>
-        </div>
-
-        <div class="row m-l-15">
-          <div class="col-md-10 min-width-centre ">
-            <input type="text" name="subheader" id="subheader" ngModel required/>
-            <label for="subheader">Subheader</label>
           </div>
         </div>
 
         <div class="form-group text-center">
           <quill-editor [styles]="editorStyle" (onFocus)="focus($event)" format="json"
                         (onEditorCreated)="created($event)"
+                        minLength="20"
                         (onBlur)="blur($event)" [modules]="config"
-                        #postContent name="content" ngModel required>
+                        #campaignContent name="content" ngModel required>
           </quill-editor>
         </div>
 
@@ -61,7 +52,8 @@
           <mat-form-field class="example-full-width border-dark" appearance="fill">
             <mat-label>Goal Amount</mat-label>
             <input type="number"
-                   class="form-control" matInput placeholder="Goal Amount" name="goalAmount" ngModel [min]="10"
+                   class="form-control" matInput placeholder="Goal Amount" name="goalAmount" ngModel
+                   value="100" [required]="selectedDonation === 'Donation'"
                    id="goalAmount">
             <mat-icon matSuffix>mode_edit</mat-icon>
           </mat-form-field>
@@ -70,7 +62,10 @@
 
 
         <div class="form-group text-center">
-          <button class="btn btn-primary">Create Campaign</button>
+          <button class="btn btn-primary" [disabled]="!createCampaign.valid || (!uploadIds || uploadIds.length < 1) ">
+            <i class="fa fa-save" style="margin-right: 2px"
+               aria-hidden="true"></i> Create Campaign
+          </button>
         </div>
 
       </form>

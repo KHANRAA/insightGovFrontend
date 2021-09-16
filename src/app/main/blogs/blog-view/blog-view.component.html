@@ -1,7 +1,8 @@
 <main class='app__main'>
   <article class='app__container' *ngIf="blog">
     <section class='app__editor'>
-      <mat-card style="text-align: center !important;"><img mat-card-image [src]="blog.imageUrl" [alt]="blog.blogId"
+      <mat-card style="text-align: center !important;"><img mat-card-image [src]="blog.images[0].imageUrl"
+                                                            [alt]="blog.blogId"
                                                             style="max-height: 400px !important; max-width:500px !important;">
       </mat-card>
       <h3 class="text-center title-style font-weight-bold ">{{ blog.title }}</h3>
@@ -17,7 +18,7 @@
       <div class="avatar"
            style="background-image: url('https://storage.googleapis.com/dews_avatars/avatars/men.png')"></div>
     </div>
-    <div class="comment-block" [hidden]="!showCommentBox">
+    <div class="comment-block" [hidden]="!user">
       <form #commentForm="ngForm" (ngSubmit)="postComment(commentForm)">
         <textarea ngModel name="commentBox" id="commentBox" cols="30" rows="3" placeholder="Add comment..."
                   [maxLength]="200" [minLength]="2"></textarea>
@@ -32,12 +33,12 @@
 
   <div class="comment-wrap" *ngFor="let comment of blog.comments">
     <div class="photo">
-      <div class="avatar" [ngStyle]="{'background-image': 'url(' + comment.commentBy.avatarImageUrl + ')'}"></div>
+      <div class="avatar" [ngStyle]="{'background-image': 'url(' + comment.commentBy[0]?.avatarImageUrl + ')'}"></div>
     </div>
     <div class="comment-block">
       <p class="comment-text">{{ comment.comment }}</p>
       <div class="bottom-comment">
-        <div class="comment-date">{{ comment.commentBy.name ? comment.commentBy.name : 'Guest' }}</div>
+        <div class="comment-date">{{ comment.commentBy[0].name ? comment.commentBy[0].name : 'Guest' }}</div>
         <ul class="comment-actions">
           <li class="complain" (click)="deleteComment(comment._id)">Delete</li>
         </ul>

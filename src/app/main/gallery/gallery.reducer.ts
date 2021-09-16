@@ -4,6 +4,7 @@ import * as GalleryActions from './gallery.action';
 export interface GalleryImage {
   imageUrl: string;
   imageId: string;
+  isLiked: boolean;
   isActive: boolean;
   tags: string[];
   totalLikes: number;
@@ -41,10 +42,31 @@ export function galleryReducer(state = initialState, action: GalleryActions.Gall
         galleryImages: action.payload.galleryImages,
         toastMessage: null,
       };
+    case GalleryActions.INCREASE_LIKE:
+      const imageData = JSON.parse(JSON.stringify(state.galleryImages));
+      imageData.map(image => {
+        if (image.imageId === action.payload.imageId) {
+          image.isLiked = true;
+          image.totalLikes = image.totalLikes + 1;
+        }
+      });
+      return {
+        ...state,
+        galleryImages: imageData,
+      };
     case GalleryActions.GET_IMAGES:
       return {
         ...state,
         isLoading: true,
+      };
+    case GalleryActions.ADD_LIKE:
+      return {
+        ...state,
+      };
+    case GalleryActions.CLEAR_MESSAGES:
+      return {
+        ...state,
+        toastMessage: null,
       };
     case GalleryActions.REVERSE_LOADING:
       return {

@@ -42,6 +42,7 @@ export class CreateBlogComponent implements OnInit {
   }
 
   private user: any;
+  uploadIds: string[] = [];
   private isLoading = false;
   private focused = false;
   private blurred = false;
@@ -73,7 +74,11 @@ export class CreateBlogComponent implements OnInit {
           'x-dews-token': this.getUserToken(),
         },
         onerror: (error) => this.toast.toastError({ body: error.data, title: 'Upload Error...' }),
-        withCredentials: false,
+        withCredentials: true,
+        onload: (data) => {
+          this.uploadIds.push(data);
+          return data;
+        },
       },
       revert: {
         url: 'upload',
@@ -81,7 +86,13 @@ export class CreateBlogComponent implements OnInit {
         method: 'DELETE',
         headers: {
           'x-dews-token': this.getUserToken(),
-          'Content-type': 'application/json'
+        },
+        withCredentials: true,
+        onerror: (error) => this.toast.toastError({ body: error.data, title: 'Upload Error...' }),
+        onload: (data) => {
+          this.uploadIds = this.uploadIds.filter((item) => {
+            return item !== data.id;
+          });
         },
       },
     },
@@ -89,7 +100,7 @@ export class CreateBlogComponent implements OnInit {
     allowImageCrop: true,
     imageCropAspectRatio: '1:1',
     allowImagePreview: true,
-    maxFileSize: '10MB',
+    maxFileSize: '20MB',
     allowImageFilter: true,
     acceptedFileTypes: 'image/jpeg, image/png, image/jpg'
   };
@@ -204,8 +215,8 @@ export class CreateBlogComponent implements OnInit {
       this.disableSubmitButton = false;
       return this.toast.toastError({ body: 'Please Upload a cover Image for Blog ', title: '' });
     }
-    const fileId = JSON.parse(this.myPond.getFile().serverId).id;
-    this.createBlogService.addBlog(formData, this.tags, fileId).subscribe(resData => {
+    // const fileId = JSON.parse(this.myPond.getFile().serverId).id;
+    this.createBlogService.addBlog(formData, this.tags, this.uploadIds).subscribe(resData => {
       this.isLoading = false;
       this.disableSubmitButton = false;
       this.toast.toastSuccess({ body: 'Successfully Created the blog ...', title: 'Success' });

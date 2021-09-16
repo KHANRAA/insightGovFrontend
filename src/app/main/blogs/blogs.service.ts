@@ -16,16 +16,22 @@ export interface Comment {
   _id: string;
   user: Author;
   comment: string;
+  commentBy: any;
+}
+
+export interface BlogImage {
+  imageUrl: string;
 }
 
 export interface Blog {
   blogId: string;
   title: string;
+  subtitle: string;
   likedBy: number;
   author: Author;
   isHighlight: boolean;
   content?: string;
-  imageUrl: string;
+  images: BlogImage[];
   createdAt: Date;
   comments: Array<Comment>;
   tags?: Array<string>;
@@ -54,11 +60,9 @@ export class BlogsService {
   }
 
   getBlog(id) {
-    return this.http.post<Blog>('http://localhost:3000/api/blog/getBlog', {
-      id
-    }).pipe(tap(blog => {
+    return this.http.get<Blog>(`http://localhost:3000/api/blog/${id}`, {}).pipe(tap(blog => {
       // console.log(blog);
-      this.store.dispatch(new BlogsActions.GetBlog(blog));
+      this.store.dispatch(new BlogsActions.GetBlog(blog[0]));
     }), catchError(errResponse => {
       if (!errResponse.error || !errResponse.error.data) {
         return of(new AuthActions.LoginFail({ body: 'Unknown Error Occured', title: 'Unknown Error' }));

@@ -1,27 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import { ToastServiceService } from '../../services/toast/toast-service.service';
 import { GalleryService } from '../admin/gallery-upload/gallery.service';
 import * as GalleyActions from './gallery.action';
-import { OtpVerificationComponent } from '../auth/otp-verification/otp-verification.component';
-import { GalleryImagee, ToastMessagee } from './gallery.model';
+import { ToastMessagee } from './gallery.model';
 import { GalleryImage } from './gallery.reducer';
-import { of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageZoomerComponent } from './image-zoomer/image-zoomer.component';
+import { map, take } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.css']
+  styleUrls: ['./gallery.component.css'],
 })
 export class GalleryComponent implements OnInit {
   galleryImages: GalleryImage[] = [];
   isLoading = true;
   toastMessage: ToastMessagee = null;
+  private userSub: Subscription;
+  user = null;
 
-  constructor(private store: Store<fromApp.AppState>, private toast: ToastServiceService, private galleryService: GalleryService, public dialog: MatDialog) { }
+  constructor(private store: Store<fromApp.AppState>, private toast: ToastServiceService, private galleryService: GalleryService, public dialog: MatDialog) {
+    this.userSub = this.store.select('auth').pipe(map(authState => authState.user)).subscribe(user => {
+      if (!!user) {
+        this.user = user;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getImages();
@@ -30,14 +38,26 @@ export class GalleryComponent implements OnInit {
       this.toastMessage = galleryState.toastMessage;
       this.galleryImages = galleryState.galleryImages;
       if (this.toastMessage) {
-        // this.toast(this.error);
+        if (this.toastMessage.type === 'info') {
+          this.toast.toastInfo({ body: this.toastMessage.body, title: this.toastMessage.title });
+        }
+        if (this.toastMessage.type === 'warn') {
+          this.toast.toastWarn({ body: this.toastMessage.body, title: this.toastMessage.title });
+        }
+        if (this.toastMessage.type === 'error') {
+          this.toast.toastError({ body: this.toastMessage.body, title: this.toastMessage.title });
+        }
+        this.store.dispatch(new GalleyActions.ClearMessage());
       }
     });
   }
 
 
+  addLikes(value) {
+    this.store.dispatch(new GalleyActions.AddLike({ imageId: value }));
+  }
+
   openModal(imageUrl) {
-    console.log('Indoe sacsasc....');
     this.dialog.open(ImageZoomerComponent, {
       backdropClass: 'bdrop',
       autoFocus: false,

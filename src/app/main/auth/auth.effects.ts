@@ -168,7 +168,7 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   redirectProfile = this.actions$.pipe(ofType(AuthActions.LOGIN), tap(() => {
     // to-do change later
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/campaign']);
   }));
 
   // @Effect({ dispatch: false })

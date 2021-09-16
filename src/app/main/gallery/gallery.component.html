@@ -2,23 +2,21 @@
 
   <h1 class="heading"><i class="far fa-images"></i> Moments <i class="fas fa-camera-retro"></i></h1>
 
-  <!--  <div class="gallery">-->
 
-  <!--    <div class="gallery-item" *ngFor="let image of galleryImages;">-->
-  <!--      <img class="gallery-image" [src]="image.imageUrl"-->
-  <!--           [alt]="image.imageId">-->
-  <!--    </div>-->
-
-  <!--  </div>-->
-
-
-  <!--  <h1>Responsive Image Gallery</h1><hr>-->
   <div id="gallery" class="container-fluid">
-    <p *ngFor="let image of galleryImages;">
+    <div *ngFor="let image of galleryImages;" style="text-align: center">
       <img [src]="image.imageUrl" class="img-responsive"
            (click)="openModal(image.imageUrl)" [alt]="image.imageId">
-      <mat-icon class="icon-display" matBadge="{{ image.totalLikes }}" matBadgeColor="accent">favorite</mat-icon>
-    </p>
+
+      <span class="example-button-container">
+        <button [id]="image.imageId" [disabled]="image.isLiked || !user" mat-fab
+                (click)="addLikes(image.imageId)"
+                aria-label="Example icon button with a heart icon" matBadge="{{ image.totalLikes }}"
+                matBadgeColor="accent" matBadgeSize="small">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </span>
+    </div>
 
   </div>
 

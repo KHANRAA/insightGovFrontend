@@ -7,7 +7,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 // @ts-ignore
 import { default as _rollupMoment } from 'moment';
-import { CreateCampaignService } from './create-campaign-service';
+import { CampaignStruct, CreateCampaignService } from './create-campaign-service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducer';
@@ -56,16 +56,6 @@ interface Donation {
   encapsulation: ViewEncapsulation.None,
 })
 export class CreateCampaignComponent implements OnInit {
-  date = new FormControl(moment());
-  minDate: Date;
-  maxDate: Date;
-  private donationType: string;
-  private userSub: Subscription;
-  private user: any;
-  private isLoading = false;
-  private focused = false;
-  private blurred = false;
-  @ViewChild('myPond') myPond: any;
 
   constructor(private createCampaignSerice: CreateCampaignService, private router: Router, private store: Store<fromApp.AppState>, private toast: ToastServiceService) {
     const currentYear = new Date().getFullYear();
@@ -78,6 +68,19 @@ export class CreateCampaignComponent implements OnInit {
       }
     });
   }
+
+  date = new FormControl(moment());
+  minDate: Date;
+  maxDate: Date;
+  uploadIds: string[] = [];
+  private donationType: string;
+  private userSub: Subscription;
+  private user: any;
+  private isLoading = false;
+  private focused = false;
+  private blurred = false;
+  @ViewChild('campaignContent') campaignContent;
+  @ViewChild('myPond') myPond: any;
 
   availableDonationTypes = [
     { name: 'Donation', id: 'donation' },
@@ -93,11 +96,6 @@ export class CreateCampaignComponent implements OnInit {
   editorStyle = {
     background: 'white',
   };
-
-  created(event: Quill) {
-    // tslint:disable-next-line:no-console
-    console.log('editor-created', event);
-  }
 
   config = {
     'emoji-toolbar': true,
@@ -139,7 +137,11 @@ export class CreateCampaignComponent implements OnInit {
           'x-dews-token': this.getUserToken(),
         },
         onerror: (error) => this.toast.toastError({ body: error.data, title: 'Upload Error...' }),
-        withCredentials: false,
+        withCredentials: true,
+        onload: (data) => {
+          this.uploadIds.push(data);
+          return data;
+        },
       },
       revert: {
         url: 'upload',
@@ -147,7 +149,13 @@ export class CreateCampaignComponent implements OnInit {
         method: 'DELETE',
         headers: {
           'x-dews-token': this.getUserToken(),
-          'Content-type': 'application/json'
+        },
+        withCredentials: true,
+        onerror: (error) => this.toast.toastError({ body: error.data, title: 'Upload Error...' }),
+        onload: (data) => {
+          this.uploadIds = this.uploadIds.filter((item) => {
+            return item !== data.id;
+          });
         },
       },
     },
@@ -160,6 +168,11 @@ export class CreateCampaignComponent implements OnInit {
     acceptedFileTypes: 'image/jpeg, image/png, image/jpg'
   };
   pondFiles = [];
+
+  created(event: Quill) {
+    // tslint:disable-next-line:no-console
+    console.log('editor-created', event);
+  }
 
   focus($event) {
     // tslint:disable-next-line:no-console
@@ -192,9 +205,10 @@ export class CreateCampaignComponent implements OnInit {
   }
 
   createNewCampaign(campaignFrom: NgForm) {
+    const campaignData: CampaignStruct = campaignFrom.value;
     console.log(campaignFrom);
-    return;
-    this.createCampaignSerice.addCampaign(campaignFrom, this.selectedDonation,).subscribe(res => {
+    campaignData.imageIds = this.uploadIds;
+    this.createCampaignSerice.addCampaign(campaignData).subscribe(res => {
       console.warn(res.data);
     });
   }
